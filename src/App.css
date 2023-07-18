@@ -19,6 +19,9 @@
 #postlogo{
   width: 60px;
 }
+#mainlogo{
+  width: 55px;
+}
 .App{
   height: 100vh;
   background-color: #ffffff;

@@ -18,7 +18,7 @@ function App() {
           <Link id="mainLogo" to="/">
             <img
               alt="mainlogo"
-              id="navlogo"
+              id="mainlogo"
               className="ui mini image"
               src="https://www.edigitalagency.com.au/wp-content/uploads/twitter-logo-black-png.png"
               //onClick={()=>{}}
