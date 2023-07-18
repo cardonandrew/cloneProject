@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+}
+.sideNav{
+  display:flex;
+  height: 100%;
+  width: 10vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color:rgb(179, 223, 255);
+  position: fixed;
+  float: left;
+}
+#homeHeader{
+  font-size: 40px;
+  color:black;
+}
+#postlogo{
+  width: 60px;
+}
+.App{
+  height: 100vh;
+  background-color: #ffffff;
+  color:rgb(0, 0, 0);
+}
+.main{
+  display:flex;
+  margin-left: 10vh;
+  padding-top: 10px;
+  justify-content: space-evenly;
+}
