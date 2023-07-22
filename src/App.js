@@ -6,6 +6,7 @@ import {
   Notify,
   Lists,
   Message,
+  Music,
   Community,
   Profile,
   PostForm,
@@ -29,7 +30,7 @@ function App() {
               alt="home"
               id="navlogo"
               className="ui mini image"
-              src="https://icon-library.com/images/birdhouse-512_8384.png"
+              src="https://cdn-icons-png.flaticon.com/512/25/25694.png"
               //onClick={()=>{}}
             ></img>
           </Link>
@@ -56,7 +57,7 @@ function App() {
               alt="message"
               id="navlogo"
               className="ui mini image"
-              src="https://cdn-icons-png.flaticon.com/512/6652/6652754.png"
+              src="https://icon-library.com/images/message-icon-transparent/message-icon-transparent-7.jpg"
               //onClick={()=>{}}
             ></img>
           </Link>
@@ -87,6 +88,15 @@ function App() {
               //onClick={()=>{}}
             ></img>
           </Link>
+          <Link id="music" to="/music">
+            <img
+              alt="music"
+              id="navlogo"
+              className="ui mini image"
+              src="https://cdn-icons-png.flaticon.com/512/4430/4430494.png"
+              //onClick={()=>{}}
+            ></img>
+          </Link>
           <Link id="post" to="/post">
             <img
               alt="post"
@@ -106,6 +116,7 @@ function App() {
             <Route path="/message" exact element={<Message />} />
             <Route path="/community" exact element={<Community />} />
             <Route path="/profile" exact element={<Profile />} />
+            <Route path="/music" exact element={<Music />} />
             <Route path="/post" exact element={<PostForm />} />
           </Routes>
         </div>

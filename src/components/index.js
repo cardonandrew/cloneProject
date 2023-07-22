@@ -6,3 +6,4 @@ export { default as Message } from "./Message";
 export { default as Community } from "./Community";
 export { default as Profile } from "./Profile";
 export { default as PostForm } from "./PostForm";
+export { default as Music } from "./Music";
