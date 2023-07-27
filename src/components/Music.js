@@ -2,18 +2,19 @@ import React from "react";
 import Draggable from "react-draggable";
 import { useRef, useState, useEffect } from "react";
 import "./music.css";
-import { FaPlay, FaPause } from "react-icons/fa";
+import { FaPlay, FaPause, FaExpandAlt, FaAngleLeft } from "react-icons/fa";
 
 const Music = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [isMin, setIsMin] = useState(false);
+  const [isFixed, setIsFixed] = useState(false);
   const progress = useRef();
   const song = useRef();
   const animationRef = useRef();
   const musicPlayer = useRef();
   const musicPage = useRef();
+  // const songPic = useRef();
 
   useEffect(() => {
     const seconds = Math.floor(song.current.duration);
@@ -63,35 +64,39 @@ const Music = () => {
   return (
     <Draggable
       axis="both"
-      handle=".music-player-mini"
-      // defaultPosition={{ x: 0, y: 0 }}
-      // position={null}
+      handle="nav"
+      defaultPosition={{ x: 0, y: 0 }}
+      position={null}
       grid={[1, 1]}
       scale={1}
     >
       <div className="music-page" ref={musicPage}>
         {/* <h1 className="comingsoon">COMING SOON</h1> */}
         <div
-          className={!isMin ? "music-player" : "music-player-mini"}
+          className={isFixed ? "music-player-fixed" : "music-player-mini"}
           ref={musicPlayer}
         >
           <nav>
             {/* exit */}
-            <button className="circle">
-              <i className="fa-solid fa-angle-left fa-2xl"></i>
+            <button
+              className="circle"
+              // onClick={() => {
+              // }}
+            >
+              <FaAngleLeft size={25} />
             </button>
             {/* menu */}
             <button
               className="circle"
               onClick={() => {
-                isMin ? setIsMin(false) : setIsMin(true);
+                isFixed ? setIsFixed(false) : setIsFixed(true);
               }}
             >
-              <i className="fa-solid fa-bars fa-2xl"></i>
+              <FaExpandAlt size={20} />
             </button>
           </nav>
           {/* picture */}
-          <div className="song-pic">
+          <div className={isFixed ? "song-pic2" : "song-pic"}>
             <img
               id="song-pic"
               className="ui medium circular image"
