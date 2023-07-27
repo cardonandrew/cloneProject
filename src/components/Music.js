@@ -1,15 +1,19 @@
+import React from "react";
+import Draggable from "react-draggable";
 import { useRef, useState, useEffect } from "react";
 import "./music.css";
 import { FaPlay, FaPause } from "react-icons/fa";
 
 const Music = () => {
-  // state
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isMin, setIsMin] = useState(false);
   const progress = useRef();
   const song = useRef();
   const animationRef = useRef();
+  const musicPlayer = useRef();
+  const musicPage = useRef();
 
   useEffect(() => {
     const seconds = Math.floor(song.current.duration);
@@ -55,19 +59,34 @@ const Music = () => {
     );
     setCurrentTime(progress.current.value);
   };
+
   return (
-    <>
-      {/* container */}
-      <div className="music-page">
+    <Draggable
+      axis="both"
+      handle=".music-player-mini"
+      // defaultPosition={{ x: 0, y: 0 }}
+      // position={null}
+      grid={[1, 1]}
+      scale={1}
+    >
+      <div className="music-page" ref={musicPage}>
         {/* <h1 className="comingsoon">COMING SOON</h1> */}
-        <div className="music-player">
+        <div
+          className={!isMin ? "music-player" : "music-player-mini"}
+          ref={musicPlayer}
+        >
           <nav>
             {/* exit */}
             <button className="circle">
               <i className="fa-solid fa-angle-left fa-2xl"></i>
             </button>
             {/* menu */}
-            <button className="circle">
+            <button
+              className="circle"
+              onClick={() => {
+                isMin ? setIsMin(false) : setIsMin(true);
+              }}
+            >
               <i className="fa-solid fa-bars fa-2xl"></i>
             </button>
           </nav>
@@ -126,7 +145,7 @@ const Music = () => {
           </div>
         </div>
       </div>
-    </>
+    </Draggable>
   );
 };
 
