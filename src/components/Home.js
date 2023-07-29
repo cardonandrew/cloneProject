@@ -1,6 +1,8 @@
 import "./home.css";
 import { BsPatchCheckFill } from "react-icons/bs";
+import { HiBadgeCheck } from "react-icons/hi";
 import { BiRepost, BiComment, BiHeart, BiSolidHeart } from "react-icons/bi";
+import { RiUserAddFill } from "react-icons/ri";
 // import { useState } from "react";
 
 const Home = (props) => {
@@ -56,12 +58,13 @@ const Home = (props) => {
                           </a>
                           {post.isVerified ? (
                             <h3 className="verified">
-                              <BsPatchCheckFill size={20} />
+                              <HiBadgeCheck size={20} />
                             </h3>
                           ) : (
                             ""
                           )}
                         </div>
+                        <RiUserAddFill size={20} />
                       </div>
                       <p className="tweet">{post.tweet}</p>
                       {post.imageUrl ? (

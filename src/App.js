@@ -1,7 +1,7 @@
 import "./App.css";
 import { seedPosts } from "./seedData";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Home,
   Explore,
@@ -96,10 +96,13 @@ function App() {
           {/* <Link id="music" to="/music"> */}
           <div
             onClick={() => {
-              isMusic
-                ? setIsMusic(false) && setIsPlaying(false)
-                : setIsMusic(true);
-              setIsPlaying(true);
+              if (!isMusic) {
+                setIsMusic(true);
+                setIsPlaying(true);
+              } else {
+                setIsPlaying(false);
+                setIsMusic(false);
+              }
             }}
           >
             <img

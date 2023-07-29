@@ -144,8 +144,8 @@ margin-top: 10px;
 #inputbutton:hover{
   transition: ease 300ms;
   padding:13px;
-  background-color: rgb(246, 246, 246);
-  color:rgb(41, 142, 231);
+  background-color: rgb(204, 231, 255);
+  color: rgb(41, 142, 231);
 }
 #inputbutton:active{
   opacity: .7;
