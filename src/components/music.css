@@ -1,9 +1,10 @@
 .music-page{
   display:flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex-direction: column;
   margin-left: 10vh;
+  margin-top:50px;
 }
 .music-player-mini{
   background-color:#232946;
@@ -22,7 +23,6 @@
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: nowrap;
-  position: relative;
   /*use display none on click on music player tab button and move component from the route to a display onclick of the tab*/
 }
 .music-player-fixed{

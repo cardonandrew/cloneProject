@@ -1,8 +1,14 @@
 const Profile = () => {
   return (
-    <>
-      <h1>Welcome to the Profile Page</h1>
-    </>
+    <body>
+      <div className="pageDiv">
+        <div className="pageFeed">
+          <header>
+            <h1 className="pageHeader">Profile</h1>
+          </header>
+        </div>
+      </div>
+    </body>
   );
 };
 

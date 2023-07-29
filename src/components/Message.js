@@ -1,8 +1,14 @@
 const Message = () => {
   return (
-    <>
-      <h1>Welcome to the Message Page</h1>
-    </>
+    <body>
+      <div className="pageDiv">
+        <div className="pageFeed">
+          <header>
+            <h1 className="pageHeader">Direct Messages</h1>
+          </header>
+        </div>
+      </div>
+    </body>
   );
 };
 

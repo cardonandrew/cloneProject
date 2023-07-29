@@ -1,8 +1,14 @@
 const PostForm = () => {
   return (
-    <>
-      <h1>Welcome to the Post Page</h1>
-    </>
+    <body>
+      <div className="pageDiv">
+        <div className="pageFeed">
+          <header>
+            <h1 className="pageHeader">Post Form</h1>
+          </header>
+        </div>
+      </div>
+    </body>
   );
 };
 

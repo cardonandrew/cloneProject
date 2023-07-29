@@ -65,8 +65,8 @@ const Music = (props) => {
     <Draggable
       axis="both"
       handle="nav"
-      defaultPosition={{ x: -60, y: 100 }}
-      position={null}
+      // defaultPosition={{ x: -60, y: 100 }}
+      // position={null}
       grid={[1, 1]}
       scale={1}
     >
@@ -100,7 +100,7 @@ const Music = (props) => {
             <img
               id="song-pic"
               className="ui medium circular image"
-              src={require("./images/demopic.jpg")}
+              src={require("../images/demopic.jpg")}
               alt="song-pic"
             />
           </div>

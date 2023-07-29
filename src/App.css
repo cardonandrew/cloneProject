@@ -37,7 +37,6 @@
 }
 #navlogo{
   transition: ease 200ms;
-  cursor: pointer;
 }
 #navlogo:hover{
   border-radius: 10px;
@@ -49,20 +48,20 @@
   padding:2px;
   transition: ease 200ms;
 }
-
+#mainlogo{
+  cursor: default;
+}
 #mainlogo:hover {
   filter: invert(100%);
   transition: ease 1s;
+  cursor: default;
 }
 .tofront{
   display: flex;
   z-index: 1;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-40%, -40%);
+  position: fixed;
 }
 .main{
   z-index: -1;

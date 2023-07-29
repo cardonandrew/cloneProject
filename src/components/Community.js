@@ -1,8 +1,14 @@
 const Community = () => {
   return (
-    <>
-      <h1>Welcome to the Community Page</h1>
-    </>
+    <body>
+      <div className="pageDiv">
+        <div className="pageFeed">
+          <header>
+            <h1 className="pageHeader">Communities</h1>
+          </header>
+        </div>
+      </div>
+    </body>
   );
 };
 

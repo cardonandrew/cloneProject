@@ -1,25 +1,48 @@
 import "./home.css";
 import { BsPatchCheckFill } from "react-icons/bs";
+import { BiRepost, BiComment, BiHeart, BiSolidHeart } from "react-icons/bi";
+// import { useState } from "react";
 
 const Home = (props) => {
   const posts = props.seedPosts;
-  console.log(posts);
+  // console.log(posts);
+  // const findHashtag = (tweet) => {
+  //   const hashTags = tweet.match(/#[a-z]+/gi);
+  //   let newTweet;
+  //   if (hashTags) {
+  //     for (let hash of hashTags) {
+  //       newTweet = tweet.replace(hash, "");
+  //     }
+  //   }
+  //   return newTweet;
+  //   console.log(hashTags);
+  // };
   return (
     <body>
-      <div className="homePage">
-        <div className="feedPage">
+      <div className="pageDiv">
+        <div className="pageFeed">
           {/*all posts will appear here and at the top, for authorized users, will be a post form*/}
           <header>
-            <h1 className="header1">Home</h1>
+            <h1 className="pageHeader">Home</h1>
           </header>
+          <div id="inputdiv" className="ui action input">
+            <input
+              type="text"
+              placeholder="What's on your mind?"
+              id="inputtext"
+            />
+            <button className="ui button" id="inputbutton">
+              Post
+            </button>
+          </div>
 
-          <div classname="feed">
+          <div className="feed">
             {posts
               ? posts.map((post) => {
                   return (
                     <div className="single-post">
                       <div className="postheader">
-                        <div>
+                        <div className="profileImage">
                           <img
                             id="profileImage"
                             className="ui tiny image"
@@ -28,7 +51,7 @@ const Home = (props) => {
                           ></img>
                         </div>
                         <div className="userdiv">
-                          <a href="music" className="header">
+                          <a href={`profile/${post.user}`} className="header">
                             @{post.user}
                           </a>
                           {post.isVerified ? (
@@ -50,6 +73,36 @@ const Home = (props) => {
                       ) : (
                         ""
                       )}
+                      <div className="actionItems">
+                        <div className="amountPair">
+                          <div className="postactionbutton">
+                            <BiComment size={23} />
+                          </div>
+                          <p className="amount">
+                            {post.commentAmount.toLocaleString("en-US")}
+                          </p>
+                        </div>
+                        <div className="amountPair">
+                          <div className="postactionbutton">
+                            <BiRepost size={30} />
+                          </div>
+                          <p className="amount">
+                            {post.repostAmount.toLocaleString("en-US")}
+                          </p>
+                        </div>
+                        <div className="amountPair">
+                          <div className="postactionbutton">
+                            {!post.isLiked ? (
+                              <BiHeart size={23} />
+                            ) : (
+                              <BiSolidHeart id="redheart" size={23} />
+                            )}
+                          </div>
+                          <p className="amount">
+                            {post.likeAmount.toLocaleString("en-US")}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   );
                 })

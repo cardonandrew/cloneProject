@@ -1,8 +1,12 @@
-.homePage{
+body{
+  background-color: rgb(21, 21, 21);
+}
+.pageDiv{
   display: flex;
   justify-content: center;
+  margin-left: 5vh;
 }
-.feedPage{
+.pageFeed{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,24 +15,30 @@
   color: white;
   width:100vw;
 }
-.header1{
-  margin-left: 10vh;
+.pageHeader{
+  margin-left: 9vh;
   color: white;
   font-size: xx-large;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 header{
   width:100vw;
+  margin-top: 10px;
   display: flex;
 }
 .feed{
-  margin: 20px;
+  margin: 5px;
 }
 .header{
   width:90%;
   color: white;
   font-size: x-large;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  cursor: default;
+  transition: ease 300ms;
+}
+.header:hover{
+  transition: ease 300ms;
 }
 .tweet{
   width:90%;
@@ -43,7 +53,6 @@ header{
   align-items:center;
   margin:5px;
 }
-
 .single-post{
 display: flex;
 flex-direction: column;
@@ -55,9 +64,20 @@ border-radius: 20px;
 width:73vw;
 padding:5px;
 margin:10px;
-box-shadow: 1px 1px 1px rgb(131, 131, 131);
+box-shadow: 1px 1px 1px rgb(60, 60, 60);
 }
-
+#redheart{
+  color:rgb(139, 31, 31);
+  transition: ease 400ms;
+}
+#redheart:hover{
+  color:rgb(255, 48, 48);
+  transition: ease 400ms;
+}
+#redheart:active{
+  opacity: .3;
+  transition: ease 300ms;
+}
 .postImage{
   width: 50vw;
   margin:5px;
@@ -70,8 +90,20 @@ box-shadow: 1px 1px 1px rgb(131, 131, 131);
   height:50px;
   margin:10px;
   z-index: 0;
+  transition: ease 300ms;
 }
-
+.profileImage{
+  transition: ease 300ms;
+  cursor: default;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-text-select: none;
+  -webkit-user-select: none;
+}
+.profileImage:hover{
+  opacity: .6;
+  transition: ease 300ms;
+}
 .verified{
   display: flex;
   flex-direction: row;
@@ -83,9 +115,65 @@ box-shadow: 1px 1px 1px rgb(131, 131, 131);
   margin:5px;
   padding: 0;
 }
-
 .userdiv{
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+#inputdiv{
+width:73%;
+margin-top: 10px;
+}
+#inputtext{
+  background-color: rgb(21, 21, 21);
+  color: white;
+  border: none;
+  font-size: larger;
+}
+#inputbutton{
+  background-color: rgb(41, 142, 231);
+  color: white;
+  font-size: larger;
+}
+#inputbutton:active{
+  opacity: .7;
+}
+.actionItems{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  color:white;
+}
+.amountPair{
+  display: flex;
+  align-items: center;
+  padding:5px;
+  font-size: larger;
+  font-weight: 900;
+}
+.amount{
+  display:flex;
+  margin-left:10px;
+  color: rgb(155, 155, 155);
+  cursor:default;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-text-select: none;
+  -webkit-user-select: none;
+}
+.postactionbutton{
+  display: flex;
+  align-items: center;
+  color: rgb(155, 155, 155);
+  transition: ease 300ms;
+}
+.postactionbutton:hover{
+  color: rgb(255, 253, 253);
+  transition: ease 300ms;
+}
+.postactionbutton:active{
+  color: rgb(41, 142, 231);
+  transition: ease 300ms;
 }

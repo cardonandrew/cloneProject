@@ -1,8 +1,15 @@
+import "./home.css";
 const Lists = () => {
   return (
-    <>
-      <h1>Welcome to the Lists Page</h1>
-    </>
+    <body>
+      <div className="pageDiv">
+        <div className="pageFeed">
+          <header>
+            <h1 className="pageHeader">Lists</h1>
+          </header>
+        </div>
+      </div>
+    </body>
   );
 };
 
