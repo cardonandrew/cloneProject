@@ -4,8 +4,8 @@ import { useRef, useState, useEffect } from "react";
 import "./music.css";
 import { FaPlay, FaPause, FaExpandAlt, FaAngleLeft } from "react-icons/fa";
 
-const Music = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const Music = (props) => {
+  const [isPlaying, setIsPlaying] = useState(!props.isPlaying);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isFixed, setIsFixed] = useState(false);
@@ -65,7 +65,7 @@ const Music = () => {
     <Draggable
       axis="both"
       handle="nav"
-      defaultPosition={{ x: 0, y: 0 }}
+      defaultPosition={{ x: -60, y: 100 }}
       position={null}
       grid={[1, 1]}
       scale={1}
@@ -141,7 +141,7 @@ const Music = () => {
             </div>
             {/* play/pause */}
             <div className="play-circle" onClick={() => playPause()}>
-              {!isPlaying ? <FaPlay /> : <FaPause />}
+              {!isPlaying ? <FaPlay size={20} /> : <FaPause size={20} />}
             </div>
             {/* forwards */}
             <div className="play-circle">

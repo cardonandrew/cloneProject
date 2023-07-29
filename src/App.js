@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { useState } from "react";
 import {
   Home,
   Explore,
@@ -12,6 +13,65 @@ import {
   PostForm,
 } from "./components";
 function App() {
+  const [isMusic, setIsMusic] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const seedPosts = [
+    {
+      user: "devin123",
+      tweet: "CODING IS SO FUN🤪",
+      isVerified: false,
+      imageUrl:
+        "https://images.pexels.com/photos/257360/pexels-photo-257360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      profileImage:
+        "https://cew.org/wp-content/uploads/2022/04/Angela-Simpson-Square-Headshot.jpg",
+    },
+    {
+      user: "Todd123",
+      tweet:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      isVerified: true,
+      imageUrl: "",
+      profileImage:
+        "https://cew.org/wp-content/uploads/2022/04/Angela-Simpson-Square-Headshot.jpg",
+    },
+    {
+      user: "wtfareyou30349",
+      tweet: "I love to code!",
+      isVerified: false,
+      imageUrl: "",
+      profileImage:
+        "https://cew.org/wp-content/uploads/2022/04/Angela-Simpson-Square-Headshot.jpg",
+    },
+    {
+      user: "ohcrapxoxo",
+      tweet:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      isVerified: true,
+      imageUrl: "",
+      profileImage:
+        "https://cew.org/wp-content/uploads/2022/04/Angela-Simpson-Square-Headshot.jpg",
+    },
+    {
+      user: "zodmaster",
+      tweet: "I love to code!",
+      isVerified: false,
+      imageUrl: "",
+      profileImage:
+        "https://cew.org/wp-content/uploads/2022/04/Angela-Simpson-Square-Headshot.jpg",
+    },
+    {
+      user: "happy30to20",
+      tweet:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      isVerified: true,
+      imageUrl:
+        "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-craig-adderley-1563356.jpg&fm=jpg",
+      profileImage:
+        "https://cew.org/wp-content/uploads/2022/04/Angela-Simpson-Square-Headshot.jpg",
+    },
+  ];
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -88,7 +148,15 @@ function App() {
               //onClick={()=>{}}
             ></img>
           </Link>
-          <Link id="music" to="/music">
+          {/* <Link id="music" to="/music"> */}
+          <div
+            onClick={() => {
+              isMusic
+                ? setIsMusic(false) && setIsPlaying(false)
+                : setIsMusic(true);
+              setIsPlaying(true);
+            }}
+          >
             <img
               alt="music"
               id="navlogo"
@@ -96,7 +164,7 @@ function App() {
               src="https://cdn-icons-png.flaticon.com/512/4430/4430494.png"
               //onClick={()=>{}}
             ></img>
-          </Link>
+          </div>
           <Link id="post" to="/post">
             <img
               alt="post"
@@ -107,9 +175,16 @@ function App() {
             ></img>
           </Link>
         </div>
+        {isMusic ? (
+          <div className="tofront">
+            <Music isPlaying={isPlaying} />
+          </div>
+        ) : (
+          ""
+        )}
         <div className="main">
           <Routes>
-            <Route path="/" exact element={<Home />} />
+            <Route path="/" exact element={<Home seedPosts={seedPosts} />} />
             <Route path="/explore" exact element={<Explore />} />
             <Route path="/notify" exact element={<Notify />} />
             <Route path="/lists" exact element={<Lists />} />
