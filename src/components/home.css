@@ -5,6 +5,7 @@ body{
   display: flex;
   justify-content: center;
   margin-left: 5vh;
+  margin-right: 4vh;
 }
 .pageFeed{
   display: flex;
@@ -39,6 +40,7 @@ header{
 }
 .header:hover{
   transition: ease 300ms;
+  margin-left:3px;
 }
 .tweet{
   width:90%;
@@ -52,6 +54,7 @@ header{
   justify-content: flex-start;
   align-items:center;
   margin:5px;
+  transition: ease 500ms;
 }
 .single-post{
 display: flex;
@@ -90,10 +93,11 @@ box-shadow: 1px 1px 1px rgb(60, 60, 60);
   height:50px;
   margin:10px;
   z-index: 0;
-  transition: ease 300ms;
+  transition: ease 200ms;
+  border: 2px solid white;
 }
 .profileImage{
-  transition: ease 300ms;
+  transition: ease 200ms;
   cursor: default;
   user-select: none;
   -moz-user-select: none;
@@ -102,7 +106,8 @@ box-shadow: 1px 1px 1px rgb(60, 60, 60);
 }
 .profileImage:hover{
   opacity: .6;
-  transition: ease 300ms;
+  transition: ease 500ms;
+  margin-left:3px;
 }
 .verified{
   display: flex;
@@ -134,6 +139,13 @@ margin-top: 10px;
   background-color: rgb(41, 142, 231);
   color: white;
   font-size: larger;
+  transition: ease 300ms;
+}
+#inputbutton:hover{
+  transition: ease 300ms;
+  padding:13px;
+  background-color: rgb(246, 246, 246);
+  color:rgb(41, 142, 231);
 }
 #inputbutton:active{
   opacity: .7;
@@ -150,7 +162,6 @@ margin-top: 10px;
   display: flex;
   align-items: center;
   padding:5px;
-  font-size: larger;
   font-weight: 900;
 }
 .amount{
@@ -167,11 +178,11 @@ margin-top: 10px;
   display: flex;
   align-items: center;
   color: rgb(155, 155, 155);
-  transition: ease 300ms;
+  transition: ease 200ms;
 }
 .postactionbutton:hover{
   color: rgb(255, 253, 253);
-  transition: ease 300ms;
+  transition: ease 200ms;
 }
 .postactionbutton:active{
   color: rgb(41, 142, 231);
