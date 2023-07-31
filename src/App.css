@@ -4,11 +4,11 @@
 .sideNav{
   display:flex;
   height: 100%;
-  width: 10vh;
+  width: 7vh;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color:rgb(179, 223, 255);
+  background-color:rgb(130, 184, 231);
   position: fixed;
   float: left;
 }
@@ -16,7 +16,7 @@
   font-size: 40px;
   color:black;
 }
-#postlogo{
+.postlogo{
   width: 60px;
   transition: ease 200ms;
 }
@@ -31,29 +31,31 @@
 }
 .main{
   display:flex;
-  margin-left: 10vh;
+  margin-left: 7vh;
   padding-top: 0px;
   justify-content: space-evenly;
 }
 #navlogo{
-  transition: ease 200ms;
+  transition: ease 400ms;
 }
 #navlogo:hover{
+  filter: invert(100%);
   border-radius: 10px;
   padding:2px;
-  transition: ease 200ms;
+  transition: ease 400ms;
 }
-#postlogo:hover{
+.postlogo:hover{
   border-radius: 50px;
   padding:2px;
   transition: ease 200ms;
+  filter: invert(100%);
 }
 #mainlogo{
   cursor: default;
 }
 #mainlogo:hover {
   filter: invert(100%);
-  transition: ease 1s;
+  transition: ease 900ms;
   cursor: default;
 }
 .tofront{

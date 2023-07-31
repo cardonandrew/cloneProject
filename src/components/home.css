@@ -4,7 +4,7 @@ body{
 .pageDiv{
   display: flex;
   justify-content: center;
-  margin-left: 5vh;
+  margin-left: 1vh;
   margin-right: 4vh;
 }
 .pageFeed{
@@ -144,7 +144,7 @@ margin-top: 10px;
 #inputbutton:hover{
   transition: ease 300ms;
   padding:13px;
-  background-color: rgb(204, 231, 255);
+  background-color: rgb(255, 255, 255);
   color: rgb(41, 142, 231);
 }
 #inputbutton:active{
