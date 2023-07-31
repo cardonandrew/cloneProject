@@ -135,11 +135,19 @@ margin-top: 10px;
   border: none;
   font-size: larger;
 }
+#inputtext1{
+  background-color: rgb(21, 21, 21);
+  color: white;
+  border: none;
+  font-size: larger;
+  margin-right: 2px;
+}
 #inputbutton{
   background-color: rgb(41, 142, 231);
   color: white;
   font-size: larger;
   transition: ease 300ms;
+
 }
 #inputbutton:hover{
   transition: ease 300ms;
@@ -187,4 +195,13 @@ margin-top: 10px;
 .postactionbutton:active{
   color: rgb(41, 142, 231);
   transition: ease 300ms;
+}
+.modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(41, 142, 231);
+}
+#modal-modal-title{
+  color:white;
 }
