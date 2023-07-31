@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-left: 10vh;
+  margin-left: 7vh;
   margin-top:50px;
 }
 .music-player-mini{
@@ -141,6 +141,7 @@ nav{
 }
 #progress{
   -webkit-appearance: none;
+  appearance: none;
   width:90%;
   height:4px;
   background-color: #b8c1ec;

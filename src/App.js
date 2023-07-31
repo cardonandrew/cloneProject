@@ -1,7 +1,9 @@
 import "./App.css";
 import { seedPosts } from "./seedData";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { HiMusicalNote } from "react-icons/hi2";
+
 import {
   Home,
   Explore,
@@ -93,7 +95,13 @@ function App() {
               //onClick={()=>{}}
             ></img>
           </Link>
-          {/* <Link id="music" to="/music"> */}
+          <Link id="post" to="/post">
+            <img
+              alt="post"
+              className="postlogo"
+              src="https://icons-for-free.com/iconfiles/png/512/tweet+post+twitter+write+icon-1320196019185766457.png"
+            ></img>
+          </Link>
           <div
             onClick={() => {
               if (!isMusic) {
@@ -105,23 +113,14 @@ function App() {
               }
             }}
           >
-            <img
+            <HiMusicalNote
               alt="music"
               id="navlogo"
               className="ui mini image"
               src="https://cdn-icons-png.flaticon.com/512/4430/4430494.png"
               //onClick={()=>{}}
-            ></img>
+            ></HiMusicalNote>
           </div>
-          <Link id="post" to="/post">
-            <img
-              alt="post"
-              id="postlogo"
-              className="ui mini image"
-              src="https://www.allpointsnorthfoundation.org/wp-content/uploads/2019/12/write-tweet.png"
-              //onClick={()=>{}}
-            ></img>
-          </Link>
         </div>
         {isMusic ? (
           <div className="tofront">
@@ -130,6 +129,7 @@ function App() {
         ) : (
           ""
         )}
+
         <div className="main">
           <Routes>
             <Route path="/" exact element={<Home seedPosts={seedPosts} />} />
@@ -139,8 +139,8 @@ function App() {
             <Route path="/message" exact element={<Message />} />
             <Route path="/community" exact element={<Community />} />
             <Route path="/profile" exact element={<Profile />} />
-            <Route path="/music" exact element={<Music />} />
             <Route path="/post" exact element={<PostForm />} />
+            <Route path="/music" exact element={<Music />} />
           </Routes>
         </div>
       </div>
