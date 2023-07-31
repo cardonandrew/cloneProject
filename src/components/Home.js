@@ -37,7 +37,7 @@ const Home = (props) => {
 
         <div className="feed">
           {posts.map(({ id, post }) => {
-            <Post key={id} post={post} />;
+            return <Post key={id} post={post} />;
           })}
         </div>
       </div>
