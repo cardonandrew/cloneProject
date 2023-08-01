@@ -7,9 +7,6 @@ import { useEffect, useState } from "react";
 
 const Post = (props) => {
   const [post, setPost] = useState(props.post);
-  useEffect(() => {
-    console.log("post", post);
-  }, []);
 
   return (
     <>

@@ -20,7 +20,7 @@ const Home = (props) => {
   return (
     <div className="pageDiv">
       <div className="pageFeed">
-        {/*all posts will appear here and at the top, for authorized users, will be a post form*/}
+        {/*all posts will appear here and at the to, for authorized users, will be a post form*/}
         <header>
           <h1 className="pageHeader">Home</h1>
         </header>

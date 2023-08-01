@@ -3,7 +3,7 @@ import { seedPosts } from "./seedData";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import { HiMusicalNote } from "react-icons/hi2";
-import { Modal } from "@mui/material";
+import { Button } from "@mui/material";
 
 import {
   Home,
@@ -15,14 +15,17 @@ import {
   Community,
   Profile,
   PostForm,
+  Login,
+  Signup,
 } from "./components";
 function App() {
   const [isMusic, setIsMusic] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openSignup, setOpenSignup] = useState(false);
+  const [newUser, setNewUser] = useState(false);
+  const handleOpenLogin = () => setOpenLogin(true);
+  const handleOpenSignup = () => setOpenSignup(true);
 
   return (
     <BrowserRouter>
@@ -126,23 +129,30 @@ function App() {
               //onClick={()=>{}}
             ></HiMusicalNote>
           </div>
-          <button className="ui mini button" onClick={handleOpen}>
-            Login
-          </button>
-          <Modal className="modal" open={open} onClose={handleClose}>
-            <div>
-              <div id="modal-modal-title" variant="h6" component="h2">
-                Please Sign In
-              </div>
-              <div id="inputdiv" className="ui action input">
-                <input type="text" placeholder="username" id="inputtext1" />
-                <input type="text" placeholder="password" id="inputtext" />
-                <button className="ui button" id="inputbutton">
-                  Sign In
-                </button>
-              </div>
-            </div>
-          </Modal>
+          {newUser ? (
+            <Button onClick={handleOpenSignup}>
+              {newUser ? "Signup" : "Login"}
+            </Button>
+          ) : (
+            <Button onClick={handleOpenLogin}>
+              {newUser ? "Signup" : "Login"}
+            </Button>
+          )}
+          {!newUser ? (
+            <Login
+              open={openLogin}
+              setOpen={setOpenLogin}
+              isNewUser={newUser}
+              setNewUser={setNewUser}
+            />
+          ) : (
+            <Signup
+              open={openSignup}
+              setOpen={setOpenSignup}
+              isNewUser={newUser}
+              setNewUser={setNewUser}
+            />
+          )}
         </div>
         {isMusic ? (
           <div className="tofront">

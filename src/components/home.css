@@ -147,11 +147,24 @@ margin-top: 10px;
   color: white;
   font-size: larger;
   transition: ease 300ms;
-
+}
+#inputbutton1{
+  margin-top: 10px;
+  width: 60%;
+  background-color: rgb(41, 142, 231);
+  color: white;
+  font-size:medium;
+  padding: 8px;
+  transition: ease 300ms;
 }
 #inputbutton:hover{
   transition: ease 300ms;
   padding:13px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(41, 142, 231);
+}
+#inputbutton1:hover{
+  transition: ease 300ms;
   background-color: rgb(255, 255, 255);
   color: rgb(41, 142, 231);
 }
@@ -204,4 +217,15 @@ margin-top: 10px;
 }
 #modal-modal-title{
   color:white;
+}
+.createaccform{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
