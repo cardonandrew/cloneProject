@@ -38,6 +38,9 @@
 #navlogo{
   transition: ease 400ms;
 }
+.link-header{
+  font-size: xx-small;
+}
 #navlogo:hover{
   filter: invert(100%);
   border-radius: 10px;

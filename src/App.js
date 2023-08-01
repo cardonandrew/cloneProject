@@ -1,10 +1,9 @@
 import "./App.css";
 import { seedPosts } from "./seedData";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiMusicalNote } from "react-icons/hi2";
 import { Button } from "@mui/material";
-
 import {
   Home,
   Explore,
@@ -18,6 +17,7 @@ import {
   Login,
   Signup,
 } from "./components";
+
 function App() {
   const [isMusic, setIsMusic] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -129,16 +129,10 @@ function App() {
               //onClick={()=>{}}
             ></HiMusicalNote>
           </div>
-          {newUser ? (
-            <Button onClick={handleOpenSignup}>
-              {newUser ? "Signup" : "Login"}
-            </Button>
-          ) : (
-            <Button onClick={handleOpenLogin}>
-              {newUser ? "Signup" : "Login"}
-            </Button>
-          )}
-          {!newUser ? (
+          <Link className="link-header" to="/signup">
+            REGISTER
+          </Link>
+          {/* {!newUser ? (
             <Login
               open={openLogin}
               setOpen={setOpenLogin}
@@ -152,7 +146,7 @@ function App() {
               isNewUser={newUser}
               setNewUser={setNewUser}
             />
-          )}
+          )} */}
         </div>
         {isMusic ? (
           <div className="tofront">
@@ -172,7 +166,18 @@ function App() {
             <Route path="/community" exact element={<Community />} />
             <Route path="/profile" exact element={<Profile />} />
             <Route path="/post" exact element={<PostForm />} />
-            <Route path="/music" exact element={<Music />} />
+            <Route
+              path="/login"
+              element={
+                <Login
+                  open={openLogin}
+                  setOpen={setOpenLogin}
+                  // isNewUser={newUser}
+                  // setNewUser={setNewUser}
+                />
+              }
+            />
+            <Route path="/signup" exact element={<Signup />} />
           </Routes>
         </div>
       </div>

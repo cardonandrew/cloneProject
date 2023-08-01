@@ -150,6 +150,7 @@ margin-top: 10px;
 }
 #inputbutton1{
   margin-top: 10px;
+  margin-bottom: 8px;
   width: 60%;
   background-color: rgb(41, 142, 231);
   color: white;
@@ -228,4 +229,7 @@ margin-top: 10px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color:rgb(130, 184, 231);
+  border-radius: 30px;
+  padding:30px;
 }
