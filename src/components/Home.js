@@ -31,7 +31,7 @@ const Home = (props) => {
         ) : (
           ""
         )}
-        {props.user ? <Postupload /> : <h3>Must login to post</h3>}
+        {props.user ? <Postupload /> : <h3>Login for full access</h3>}
         <div className="feed">
           {posts.map(({ id, post }) => {
             return <Post key={id} post={post} />;

@@ -49,6 +49,7 @@ export const Postupload = (props) => {
               setProgress(0);
               setTweet("");
               setImage(null);
+              setImageName(null);
             });
         }
       );
@@ -64,6 +65,7 @@ export const Postupload = (props) => {
       setProgress(0);
       setTweet("");
       setImage(null);
+      setImageName(null);
     }
   };
 
