@@ -124,12 +124,7 @@ function App() {
               LOGIN
             </Link>
           ) : (
-            <Link
-              className="link-header"
-              onClick={() => {
-                handlelogout();
-              }}
-            >
+            <Link className="link-header" onClick={handlelogout}>
               LOGOUT
             </Link>
           )}

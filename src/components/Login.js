@@ -29,15 +29,15 @@ const Login = (props) => {
     e.preventDefault();
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .then((authUser) => {
         // Signed in
-        const user = userCredential.user;
+        setUser(authUser.user);
         navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        alert(errorCode, errorMessage);
       });
   };
 
