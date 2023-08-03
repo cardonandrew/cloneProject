@@ -39,7 +39,8 @@
   transition: ease 400ms;
 }
 .link-header{
-  font-size: xx-small;
+  font-size: x-small;
+  color:black
 }
 #navlogo:hover{
   filter: invert(100%);
@@ -71,8 +72,3 @@
 .main{
   z-index: -1;
 } 
-.login{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}

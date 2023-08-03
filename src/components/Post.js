@@ -44,17 +44,13 @@ const Post = (props) => {
             <div className="postactionbutton">
               <BiComment size={23} />
             </div>
-            <p className="amount">
-              {post.commentAmount.toLocaleString("en-US")}
-            </p>
+            <p className="amount">{post.commentAmount}</p>
           </div>
           <div className="amountPair">
             <div className="postactionbutton">
               <BiRepost size={30} />
             </div>
-            <p className="amount">
-              {post.repostAmount.toLocaleString("en-US")}
-            </p>
+            <p className="amount">{post.repostAmount}</p>
           </div>
           <div className="amountPair">
             <div className="postactionbutton">
@@ -64,7 +60,7 @@ const Post = (props) => {
                 <BiSolidHeart id="redheart" size={23} />
               )}
             </div>
-            <p className="amount">{post.likeAmount.toLocaleString("en-US")}</p>
+            <p className="amount">{post.likeAmount}</p>
           </div>
         </div>
       </div>

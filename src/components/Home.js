@@ -2,6 +2,7 @@ import "./home.css";
 import { Post } from "./index";
 import { useState, useEffect } from "react";
 import { db } from "../firebase";
+import Postupload from "./Postupload";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
@@ -16,25 +17,19 @@ const Home = (props) => {
       );
     });
   }, []);
-  console.log("posts", posts);
   return (
     <div className="pageDiv">
       <div className="pageFeed">
         {/*all posts will appear here and at the to, for authorized users, will be a post form*/}
         <header>
-          <h1 className="pageHeader">Home</h1>
+          <h1 className="pageHeader">Home </h1>
         </header>
-        <div id="inputdiv" className="ui action input">
-          <input
-            type="text"
-            placeholder="What's on your mind?"
-            id="inputtext"
-          />
-          <button className="ui button" id="inputbutton">
-            Post
-          </button>
-        </div>
-
+        {props.user ? (
+          <h3 className="pageHeader2"> Welcome {props.user.displayName}! </h3>
+        ) : (
+          ""
+        )}
+        {props.user ? <Postupload /> : <h3>Must login to post</h3>}
         <div className="feed">
           {posts.map(({ id, post }) => {
             return <Post key={id} post={post} />;

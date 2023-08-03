@@ -22,10 +22,17 @@ body{
   font-size: xx-large;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
+.pageHeader2{
+  color: white;
+  font-size: x-large;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
 header{
   width:100vw;
   margin-top: 10px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .feed{
   margin: 5px;
@@ -68,6 +75,11 @@ width:73vw;
 padding:5px;
 margin:10px;
 box-shadow: 1px 1px 1px rgb(60, 60, 60);
+}
+.progressbar{
+  width:73vw;
+  color:rgb(52, 94, 155);
+  background-color: rgb(18, 18, 18);
 }
 #redheart{
   color:rgb(139, 31, 31);
@@ -151,7 +163,7 @@ margin-top: 10px;
 #inputbutton1{
   margin-top: 10px;
   margin-bottom: 8px;
-  width: 60%;
+  width: 73%;
   background-color: rgb(41, 142, 231);
   color: white;
   font-size:medium;
@@ -218,6 +230,7 @@ margin-top: 10px;
 }
 #modal-modal-title{
   color:white;
+  text-shadow: .5px .5px black;
 }
 .createaccform{
   display: flex;
@@ -228,8 +241,20 @@ margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color:rgb(130, 184, 231);
+  justify-content: space-evenly;
+  background-color:rgb(47, 64, 79);
   border-radius: 30px;
-  padding:30px;
+  padding:20px;
+  width: 45vw;
+  min-width: 300px;
+  max-width: 430px;
+
+}
+.loginpage{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
 }

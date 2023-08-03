@@ -1,9 +1,11 @@
 import "./App.css";
 import { seedPosts } from "./seedData";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HiMusicalNote } from "react-icons/hi2";
 import { Button } from "@mui/material";
+import { auth } from "./firebase";
+import { Avatar } from "@mui/material";
 import {
   Home,
   Explore,
@@ -21,11 +23,12 @@ import {
 function App() {
   const [isMusic, setIsMusic] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
-  const [openSignup, setOpenSignup] = useState(false);
-  const [newUser, setNewUser] = useState(false);
-  const handleOpenLogin = () => setOpenLogin(true);
-  const handleOpenSignup = () => setOpenSignup(true);
+  const [user, setUser] = useState(auth.currentUser);
+
+  const handlelogout = () => {
+    auth.signOut();
+    setUser(null);
+  };
 
   return (
     <BrowserRouter>
@@ -95,22 +98,9 @@ function App() {
             ></img>
           </Link>
           <Link id="profile" to="/profile">
-            <img
-              alt="profile"
-              id="navlogo"
-              className="ui mini image"
-              src="https://cdn-icons-png.flaticon.com/512/4519/4519678.png"
-              //onClick={()=>{}}
-            ></img>
+            <Avatar alt="profile"></Avatar>
           </Link>
-          <Link id="post" to="/post">
-            <img
-              alt="post"
-              className="postlogo"
-              src="https://icons-for-free.com/iconfiles/png/512/tweet+post+twitter+write+icon-1320196019185766457.png"
-            ></img>
-          </Link>
-          <div
+          {/* <div
             onClick={() => {
               if (!isMusic) {
                 setIsMusic(true);
@@ -128,25 +118,21 @@ function App() {
               src="https://cdn-icons-png.flaticon.com/512/4430/4430494.png"
               //onClick={()=>{}}
             ></HiMusicalNote>
-          </div>
-          <Link className="link-header" to="/signup">
-            REGISTER
-          </Link>
-          {/* {!newUser ? (
-            <Login
-              open={openLogin}
-              setOpen={setOpenLogin}
-              isNewUser={newUser}
-              setNewUser={setNewUser}
-            />
+          </div> */}
+          {!user ? (
+            <Link className="link-header" to="/signup">
+              LOGIN
+            </Link>
           ) : (
-            <Signup
-              open={openSignup}
-              setOpen={setOpenSignup}
-              isNewUser={newUser}
-              setNewUser={setNewUser}
-            />
-          )} */}
+            <Link
+              className="link-header"
+              onClick={() => {
+                handlelogout();
+              }}
+            >
+              LOGOUT
+            </Link>
+          )}
         </div>
         {isMusic ? (
           <div className="tofront">
@@ -158,7 +144,11 @@ function App() {
 
         <div className="main">
           <Routes>
-            <Route path="/" exact element={<Home seedPosts={seedPosts} />} />
+            <Route
+              path="/"
+              exact
+              element={<Home seedPosts={seedPosts} user={user} />}
+            />
             <Route path="/explore" exact element={<Explore />} />
             <Route path="/notify" exact element={<Notify />} />
             <Route path="/lists" exact element={<Lists />} />
@@ -168,16 +158,13 @@ function App() {
             <Route path="/post" exact element={<PostForm />} />
             <Route
               path="/login"
-              element={
-                <Login
-                  open={openLogin}
-                  setOpen={setOpenLogin}
-                  // isNewUser={newUser}
-                  // setNewUser={setNewUser}
-                />
-              }
+              element={<Login user={user} setUser={setUser} />}
             />
-            <Route path="/signup" exact element={<Signup />} />
+            <Route
+              path="/signup"
+              exact
+              element={<Signup user={user} setUser={setUser} />}
+            />
           </Routes>
         </div>
       </div>
