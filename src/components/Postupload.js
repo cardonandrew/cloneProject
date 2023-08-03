@@ -78,14 +78,14 @@ export const Postupload = (props) => {
         </Button>
         <input
           type="text"
-          placeholder="What's on your mind?"
+          placeholder="Say something..."
           id="inputtext"
           value={tweet}
           onChange={(event) => {
             setTweet(event.target.value);
           }}
         />
-        <button onClick={handleUpload} className="ui button" id="inputbutton">
+        <button onClick={handleUpload} className="ui button">
           Post
         </button>
       </div>

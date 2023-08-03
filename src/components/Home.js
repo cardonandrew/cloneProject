@@ -1,11 +1,12 @@
 import "./home.css";
 import { Post } from "./index";
 import { useState, useEffect } from "react";
-import { db, storage } from "../firebase";
+import { db, storage, auth } from "../firebase";
 import Postupload from "./Postupload";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
+  const user = props.user;
 
   useEffect(() => {
     db.collection("posts")
@@ -26,12 +27,12 @@ const Home = (props) => {
         <header>
           <h1 className="pageHeader">Home </h1>
         </header>
-        {props.user ? (
-          <h3 className="pageHeader2"> Welcome {props.user.displayName}! </h3>
+        {user ? (
+          <h3 className="pageHeader2"> Welcome {user.displayName}! </h3>
         ) : (
           ""
         )}
-        {props.user ? <Postupload /> : <h3>Login for full access</h3>}
+        {user ? <Postupload /> : <h3>Login for full access</h3>}
         <div className="feed">
           {posts.map(({ id, post }) => {
             return <Post key={id} post={post} />;

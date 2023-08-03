@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import firebase from "firebase/compat/app";
 
 const Login = (props) => {
   const [password, setPassword] = useState("");
@@ -12,28 +13,18 @@ const Login = (props) => {
   const setUser = props.setUser;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const noDupe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        setUser(authUser);
-      } else {
-        setUser(null);
-      }
-    });
-    return () => {
-      noDupe();
-    };
-  }, [user, email]);
-
   const onLogin = (e) => {
     e.preventDefault();
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        // Signed in
-        setUser(authUser.user);
-        navigate("/");
-      })
+    firebase
+      .auth()
+      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(
+        auth.signInWithEmailAndPassword(email, password).then((authUser) => {
+          // Signed in
+          setUser(authUser.user);
+          navigate("/");
+        })
+      )
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;

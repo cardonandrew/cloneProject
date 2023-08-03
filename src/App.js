@@ -1,11 +1,10 @@
 import "./App.css";
 import { seedPosts } from "./seedData";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { useState } from "react";
-import { HiMusicalNote } from "react-icons/hi2";
-import { Button } from "@mui/material";
+import { useState, useEffect } from "react";
 import { auth } from "./firebase";
 import { Avatar } from "@mui/material";
+import firebase from "firebase/compat/app";
 import {
   Home,
   Explore,
@@ -23,11 +22,24 @@ import {
 function App() {
   const [isMusic, setIsMusic] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [user, setUser] = useState(auth.currentUser);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const noDupe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser);
+      } else {
+        setUser(null);
+      }
+    });
+    return () => {
+      noDupe();
+    };
+  }, [user]);
 
   const handlelogout = () => {
     auth.signOut();
-    setUser(null);
+    setUser();
   };
 
   return (
@@ -100,25 +112,7 @@ function App() {
           <Link id="profile" to="/profile">
             <Avatar alt="profile"></Avatar>
           </Link>
-          {/* <div
-            onClick={() => {
-              if (!isMusic) {
-                setIsMusic(true);
-                setIsPlaying(true);
-              } else {
-                setIsPlaying(false);
-                setIsMusic(false);
-              }
-            }}
-          >
-            <HiMusicalNote
-              alt="music"
-              id="navlogo"
-              className="ui mini image"
-              src="https://cdn-icons-png.flaticon.com/512/4430/4430494.png"
-              //onClick={()=>{}}
-            ></HiMusicalNote>
-          </div> */}
+
           {!user ? (
             <Link className="link-header" to="/signup">
               LOGIN

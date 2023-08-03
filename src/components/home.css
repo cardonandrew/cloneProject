@@ -24,7 +24,7 @@ body{
 }
 .pageHeader2{
   color: white;
-  font-size: x-large;
+  font-size: large;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 header{
@@ -80,7 +80,7 @@ box-shadow: 1px 1px 1px rgb(60, 60, 60);
   width:73vw;
   color:rgb(52, 94, 155);
   background-color: rgb(18, 18, 18);
-  height:5px;
+  height:3px;
 }
 #redheart{
   color:rgb(139, 31, 31);
