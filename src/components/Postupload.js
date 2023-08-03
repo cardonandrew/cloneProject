@@ -17,40 +17,54 @@ export const Postupload = (props) => {
   };
 
   const handleUpload = () => {
-    const uploadTask = storage.ref(`images/${image.name}`).put(image);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progress);
-      },
-      (error) => {
-        console.log(error);
-        alert(error.message);
-      },
-      () => {
-        storage
-          .ref("images")
-          .child(image.name)
-          .getDownloadURL()
-          .then((url) => {
-            db.collection("posts").add({
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              tweet: tweet,
-              imageUrl: url,
-              user: auth.currentUser.displayName,
-              likeAmount: 0,
-              commentAmount: 0,
-              repostAmount: 0,
+    if (image) {
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(progress);
+        },
+        (error) => {
+          console.log(error);
+          alert(error.message);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              db.collection("posts").add({
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                tweet: tweet,
+                imageUrl: url,
+                user: auth.currentUser.displayName,
+                likeAmount: 0,
+                commentAmount: 0,
+                repostAmount: 0,
+              });
+              setProgress(0);
+              setTweet("");
+              setImage(null);
             });
-            setProgress(0);
-            setTweet("");
-            setImage(null);
-          });
-      }
-    );
+        }
+      );
+    } else {
+      db.collection("posts").add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        tweet: tweet,
+        user: auth.currentUser.displayName,
+        likeAmount: 0,
+        commentAmount: 0,
+        repostAmount: 0,
+      });
+      setProgress(0);
+      setTweet("");
+      setImage(null);
+    }
   };
 
   return (
