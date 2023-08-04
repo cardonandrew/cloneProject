@@ -4,7 +4,6 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { auth } from "./firebase";
 import { Avatar } from "@mui/material";
-import firebase from "firebase/compat/app";
 import {
   Home,
   Explore,

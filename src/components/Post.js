@@ -5,6 +5,7 @@ import { RiUserAddFill } from "react-icons/ri";
 import { Avatar } from "@mui/material";
 import { auth, db } from "../firebase";
 import { useEffect, useState } from "react";
+import firebase from "firebase/compat/app";
 
 const Post = ({ postId, post }) => {
   const [comments, setComments] = useState([]);
@@ -30,10 +31,11 @@ const Post = ({ postId, post }) => {
 
   const postComment = (event) => {
     event.preventDefault();
-    db.collection("posts")
-      .doc(postId)
-      .collection("comments")
-      .add({ username: auth.currentUser.displayName, text: comment });
+    db.collection("posts").doc(postId).collection("comments").add({
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      username: auth.currentUser.displayName,
+      text: comment,
+    });
     setComment("");
   };
 
