@@ -259,3 +259,23 @@ margin-top: 10px;
   justify-content: center;
   background-color: black;
 }
+.comment-line{
+  display: flex;
+  width:50vw;
+  margin:10px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: small;
+}
+.nametag{
+  margin-right:10px;
+  color: white;
+  font-size: medium;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  cursor: default;
+  transition: ease 300ms;
+}
+.nametag:hover{
+  transition: ease 300ms;
+  margin-left:3px;
+}

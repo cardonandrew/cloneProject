@@ -3,10 +3,39 @@ import { HiBadgeCheck } from "react-icons/hi";
 import { BiRepost, BiComment, BiHeart, BiSolidHeart } from "react-icons/bi";
 import { RiUserAddFill } from "react-icons/ri";
 import { Avatar } from "@mui/material";
+import { auth, db } from "../firebase";
 import { useEffect, useState } from "react";
 
-const Post = (props) => {
-  const [post, setPost] = useState(props.post);
+const Post = ({ postId, post }) => {
+  const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState("");
+  let counter = 0;
+
+  useEffect(() => {
+    let unsubscribe;
+    if (postId) {
+      unsubscribe = db
+        .collection("posts")
+        .doc(postId)
+        .collection("comments")
+        .onSnapshot((snapshot) => {
+          setComments(snapshot.docs.map((doc) => doc.data(comments)));
+        });
+    }
+    console.log(comments);
+    return () => {
+      unsubscribe();
+    };
+  }, [postId, comments]);
+
+  const postComment = (event) => {
+    event.preventDefault();
+    db.collection("posts")
+      .doc(postId)
+      .collection("comments")
+      .add({ username: auth.currentUser.displayName, text: comment });
+    setComment("");
+  };
 
   return (
     <>
@@ -63,6 +92,33 @@ const Post = (props) => {
             <p className="amount">{post.likeAmount}</p>
           </div>
         </div>
+        <form id="inputdiv" className="ui action input">
+          <input
+            type="text"
+            placeholder="Write comment here..."
+            id="inputtext"
+            value={comment}
+            onChange={(event) => {
+              setComment(event.target.value);
+            }}
+          />
+          <button
+            disabled={!comment}
+            onClick={postComment}
+            className="ui button"
+            type="submit"
+          >
+            comment
+          </button>
+        </form>
+        {comments.map((comment) => (
+          <p key={counter} className="comment-line">
+            <a href={`profile/${comment.username}`} className="nametag">
+              @{comment.username}
+            </a>
+            {comment.text}
+          </p>
+        ))}
       </div>
     </>
   );

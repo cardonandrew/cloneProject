@@ -1,7 +1,7 @@
 import "./home.css";
 import { Post } from "./index";
 import { useState, useEffect } from "react";
-import { db, storage, auth } from "../firebase";
+import { db } from "../firebase";
 import Postupload from "./Postupload";
 
 const Home = (props) => {
@@ -35,7 +35,7 @@ const Home = (props) => {
         {user ? <Postupload /> : <h3>Login for full access</h3>}
         <div className="feed">
           {posts.map(({ id, post }) => {
-            return <Post key={id} post={post} />;
+            return <Post key={id} postId={id} post={post} />;
           })}
         </div>
       </div>
