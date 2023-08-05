@@ -1,81 +1,44 @@
 import React, { useState } from "react";
 import "./home.css";
 import { Button } from "@mui/material";
-import { storage, db, auth } from "../firebase";
-import firebase from "firebase/compat/app";
+import { createPost } from "../api/requests";
+import { useEffect } from "react";
 
 const Upload = ({ user }) => {
   const [tweet, setTweet] = useState("");
   const [image, setImage] = useState(null);
-  const [imageName, setImageName] = useState("");
-  const [progress, setProgress] = useState(0);
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
-      setImageName(e.target.files[0].name);
     }
   };
 
-  const handleUpload = () => {
-    if (image) {
-      const uploadTask = storage.ref(`images/${image.name}`).put(image);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setProgress(progress);
-        },
-        (error) => {
-          console.log(error);
-          alert(error.message);
-        },
-        () => {
-          storage
-            .ref("images")
-            .child(image.name)
-            .getDownloadURL()
-            .then((url) => {
-              db.collection("posts").add({
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                tweet: tweet,
-                imageUrl: url,
-                user: user.displayName,
-                likeAmount: 0,
-                commentAmount: 0,
-                repostAmount: 0,
-              });
-              setProgress(0);
-              setTweet("");
-              setImage(null);
-              setImageName(null);
-            });
-        }
-      );
-    } else {
-      db.collection("posts").add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        tweet: tweet,
-        user: auth.currentUser.displayName,
-        likeAmount: 0,
-        commentAmount: 0,
-        repostAmount: 0,
-      });
-      setProgress(0);
-      setTweet("");
-      setImage(null);
-      setImageName(null);
-    }
+  const handleClear = (e) => {
+    e.preventDefault();
+    // setProgress(0);
+    setTweet("");
+    setImageUrl("");
+  };
+  const handleUpload = async (e) => {
+    const newPost = await createPost(
+      user.username,
+      tweet,
+      user.isVerified,
+      imageUrl,
+      user.profileImage
+    );
+    console.log("newPost", newPost);
+    handleClear(e);
   };
 
   return (
     <>
       <div id="inputdiv" className="ui action input">
         <Button className="ui button" variant="contained" component="label">
-          {imageName ? imageName : "Upload"}
-          <input type="file" onChange={handleChange} hidden />
+          {"Upload"}
+          <input type="file" onChange={handleChange} accept="/image" hidden />
         </Button>
         <input
           type="text"
@@ -90,7 +53,19 @@ const Upload = ({ user }) => {
           Post
         </button>
       </div>
-      <progress className="progressbar" value={progress} max="100"></progress>
+
+      <div className="ui input">
+        <input
+          type="text"
+          placeholder="image url"
+          id="inputtext1"
+          value={imageUrl}
+          onChange={(event) => {
+            setImageUrl(event.target.value);
+          }}
+        />
+      </div>
+      {/* <progress className="progressbar" value={progress} max="100"></progress> */}
     </>
   );
 };

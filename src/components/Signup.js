@@ -1,45 +1,37 @@
 import "./home.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../api/requests";
 
-const Signup = (props) => {
+const Signup = ({ setToken }) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const user = props.user;
-  const setUser = props.setUser;
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const noDupe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        setUser(authUser);
-      } else {
-        setUser(null);
-      }
-    });
-    return () => {
-      noDupe();
-    };
-  }, [user, username]);
-
-  const signup = (event) => {
+  const signup = async (event) => {
+    console.log("onSubmitHandler() called");
     event.preventDefault();
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        return authUser.user.updateProfile({ displayName: username });
-      })
-      .then(() => {
-        navigate("/");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    const results = await registerUser(username, password, email);
+    console.log("results", results);
+    setToken(results.token);
+    window.localStorage.setItem("token", results.token);
+    if (results.token) {
+      handleRegister();
+    } else {
+      alert(` The username ${username} is already registered`);
+    }
   };
+
+  const handleRegister = () => {
+    setUsername("");
+    setPassword("");
+    navigate("/login");
+  };
+
   return (
     <div className="loginpage">
       <form onSubmit={signup} className="login">
