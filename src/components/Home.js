@@ -1,15 +1,15 @@
 import "./home.css";
-import { Post } from "./index";
+import { Post, Upload } from "./index";
 import { useState, useEffect } from "react";
 import { db } from "../firebase";
-import Postupload from "./Postupload";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
   const user = props.user;
 
   useEffect(() => {
-    db.collection("posts")
+    const noDupe = db
+      .collection("posts")
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
         setPosts(
@@ -19,6 +19,9 @@ const Home = (props) => {
           }))
         );
       });
+    return () => {
+      noDupe();
+    };
   }, []);
   return (
     <div className="pageDiv">
@@ -32,10 +35,10 @@ const Home = (props) => {
         ) : (
           ""
         )}
-        {user ? <Postupload /> : <h3>Login for full access</h3>}
+        {user ? <Upload user={user} /> : <h3>Login for full access</h3>}
         <div className="feed">
           {posts.map(({ id, post }) => {
-            return <Post key={id} postId={id} post={post} />;
+            return <Post key={id} postId={id} user={user} post={post} />;
           })}
         </div>
       </div>

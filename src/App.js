@@ -34,7 +34,7 @@ function App() {
     return () => {
       noDupe();
     };
-  }, [user]);
+  }, []);
 
   const handlelogout = () => {
     auth.signOut();

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./home.css";
 import { Button } from "@mui/material";
-import { storage, db, auth, firebase } from "../firebase";
+import { storage, db, auth } from "../firebase";
+import firebase from "firebase/compat/app";
 
-export const Postupload = (props) => {
+const Upload = ({ user }) => {
   const [tweet, setTweet] = useState("");
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState("");
@@ -41,7 +42,7 @@ export const Postupload = (props) => {
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 tweet: tweet,
                 imageUrl: url,
-                user: auth.currentUser.displayName,
+                user: user.displayName,
                 likeAmount: 0,
                 commentAmount: 0,
                 repostAmount: 0,
@@ -94,4 +95,4 @@ export const Postupload = (props) => {
   );
 };
 
-export default Postupload;
+export default Upload;

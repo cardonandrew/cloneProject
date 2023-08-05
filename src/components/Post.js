@@ -3,11 +3,11 @@ import { HiBadgeCheck } from "react-icons/hi";
 import { BiRepost, BiComment, BiHeart, BiSolidHeart } from "react-icons/bi";
 import { RiUserAddFill } from "react-icons/ri";
 import { Avatar } from "@mui/material";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
 
-const Post = ({ postId, post }) => {
+const Post = ({ postId, post, user }) => {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   let counter = 0;
@@ -23,17 +23,16 @@ const Post = ({ postId, post }) => {
           setComments(snapshot.docs.map((doc) => doc.data(comments)));
         });
     }
-    console.log(comments);
     return () => {
       unsubscribe();
     };
-  }, [postId, comments]);
+  }, [postId]);
 
   const postComment = (event) => {
     event.preventDefault();
     db.collection("posts").doc(postId).collection("comments").add({
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      username: auth.currentUser.displayName,
+      username: user.displayName,
       text: comment,
     });
     setComment("");
@@ -113,14 +112,16 @@ const Post = ({ postId, post }) => {
             comment
           </button>
         </form>
-        {comments.map((comment) => (
-          <p key={counter} className="comment-line">
-            <a href={`profile/${comment.username}`} className="nametag">
-              @{comment.username}
-            </a>
-            {comment.text}
-          </p>
-        ))}
+        {user
+          ? comments.map((comment) => (
+              <p key={counter} className="comment-line">
+                <a href={`profile/${comment.username}`} className="nametag">
+                  @{comment.username}
+                </a>
+                {comment.text}
+              </p>
+            ))
+          : ""}
       </div>
     </>
   );
