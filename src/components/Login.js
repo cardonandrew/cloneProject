@@ -1,5 +1,5 @@
 import "./home.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -13,9 +13,9 @@ const Login = ({ setUser, setToken }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     const results = await logInUser(username, password);
-    console.log("login results", results);
-    setUser(results.user);
     setToken(results.token);
+    setUser(results.user.username);
+    window.localStorage.setItem("user", JSON.stringify(results.user));
     window.localStorage.setItem("token", results.token);
     if (results.token) {
       handleLogin();
@@ -58,7 +58,7 @@ const Login = ({ setUser, setToken }) => {
         <Button className="ui button" id="inputbutton1" type="submit">
           Sign In
         </Button>
-        <Link to="/signup">Create Account</Link>
+        <Link to="/signup">Create account</Link>
       </form>
     </div>
   );

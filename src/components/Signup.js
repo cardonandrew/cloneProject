@@ -1,25 +1,31 @@
 import "./home.css";
 import React, { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Checkbox } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api/requests";
 
-const Signup = ({ setToken }) => {
+const Signup = ({ setUser }) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
 
   const navigate = useNavigate();
 
   const signup = async (event) => {
-    console.log("onSubmitHandler() called");
     event.preventDefault();
-    const results = await registerUser(username, password, email);
-    console.log("results", results);
-    setToken(results.token);
-    window.localStorage.setItem("token", results.token);
-    if (results.token) {
+    const results = await registerUser(
+      username,
+      password,
+      email,
+      isVerified,
+      profileImage
+    );
+    setUser(results.user);
+    window.localStorage.setItem("user", results.user);
+    if (results.user) {
       handleRegister();
     } else {
       alert(` The username ${username} is already registered`);
@@ -30,6 +36,9 @@ const Signup = ({ setToken }) => {
     setUsername("");
     setPassword("");
     navigate("/login");
+  };
+  const checkHandler = () => {
+    setIsVerified(!isVerified);
   };
 
   return (
@@ -69,10 +78,30 @@ const Signup = ({ setToken }) => {
             }}
           />
         </div>
+        <div id="inputdiv" className="ui input">
+          <input
+            placeholder="profile image url"
+            value={profileImage}
+            type="link"
+            className="inputtext"
+            onChange={(e) => {
+              setProfileImage(e.target.value);
+            }}
+          />
+        </div>
+        <div id="inputdiv" className="ui input">
+          <h2 id="modal-modal-title">Are you famous?</h2>
+          <input
+            type="checkbox"
+            id="checkbox"
+            checked={isVerified}
+            onChange={checkHandler}
+          />
+        </div>
         <Button className="ui button" id="inputbutton1" type="submit">
           Sign Up
         </Button>
-        <Link to="/login">Login</Link>
+        <Link to="/login">I already have an account</Link>
       </form>
     </div>
   );

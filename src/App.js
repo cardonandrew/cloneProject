@@ -20,29 +20,32 @@ import {
 
 function App() {
   const [allPosts, setAllPosts] = useState([]);
-  const [user, setUser] = useState();
+  const [newPost, setNewPost] = useState();
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || null
   );
-  console.log("allPosts:", allPosts);
+  const [user, setUser] = useState(
+    JSON.parse(window.localStorage.getItem("user")) || null
+  );
   console.log("user", user);
+  console.log("token", token);
 
   useEffect(() => {
     const getAllPosts = async () => {
       try {
         const posts = await fetchPosts();
-        setAllPosts(posts.posts);
+        setAllPosts(posts.posts.reverse());
       } catch (error) {
         console.error(error);
       }
     };
 
     getAllPosts();
-  }, []);
+  }, [newPost]);
 
   const handlelogout = () => {
-    setToken(null);
     setUser(null);
+    window.localStorage.clear();
   };
 
   return (
@@ -118,7 +121,7 @@ function App() {
 
           {!user ? (
             <Link className="link-header" to="/signup">
-              LOGIN
+              SIGNUP
             </Link>
           ) : (
             <Link className="link-header" onClick={handlelogout}>
@@ -132,7 +135,14 @@ function App() {
             <Route
               path="/"
               exact
-              element={<Home allPosts={allPosts} user={user} />}
+              element={
+                <Home
+                  setNewPost={setNewPost}
+                  allPosts={allPosts}
+                  token={token}
+                  user={user}
+                />
+              }
             />
             <Route path="/explore" exact element={<Explore />} />
             <Route path="/notify" exact element={<Notify />} />
@@ -144,15 +154,13 @@ function App() {
             <Route
               path="/login"
               element={
-                <Login user={user} setUser={setUser} setToken={setToken} />
+                <Login user={user} setToken={setToken} setUser={setUser} />
               }
             />
             <Route
               path="/signup"
               exact
-              element={
-                <Signup setToken={setToken} user={user} setUser={setUser} />
-              }
+              element={<Signup user={user} setUser={setUser} />}
             />
           </Routes>
         </div>

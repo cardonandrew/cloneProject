@@ -1,4 +1,6 @@
-const BASEURL = "http://localhost:1337/api";
+//! Ill need a getCommentsbyPostId, createComment, editComment, and deleteComment
+
+const BASEURL = "https://twitterbackend-d9fb.onrender.com/api";
 
 const makeHeaders = (token) => {
   const headers = {
@@ -15,9 +17,6 @@ const makeHeaders = (token) => {
 export const apiCall = async (endpoint, defaultOptions = {}) => {
   const { token, method, body } = defaultOptions;
 
-  console.log("defaultOptions", defaultOptions);
-  console.log("endpoint", endpoint);
-
   const options = {
     mode: "cors",
   };
@@ -28,12 +27,8 @@ export const apiCall = async (endpoint, defaultOptions = {}) => {
   if (body) {
     options.body = JSON.stringify(body);
   }
-  console.log("options", options);
-  console.log("baseurl", BASEURL);
   const response = await fetch(`${BASEURL}/${endpoint}`, options);
-  console.log("response apiCall", response, options);
   const result = await response.json();
-  console.log("result", result);
   return result;
 };
 
@@ -51,13 +46,32 @@ export const fetchPosts = async (token = null) => {
     };
   }
 };
-export const registerUser = async (username, password) => {
-  console.log("registerUser", username, password);
+export const registerUser = async (
+  username,
+  password,
+  email,
+  isVerified,
+  profileImage
+) => {
+  console.log(
+    "registerUser",
+    username,
+    password,
+    email,
+    isVerified,
+    profileImage
+  );
   try {
     const results = await apiCall("users/register", {
       token: null,
       method: "POST",
-      body: { username: username, password: password },
+      body: {
+        username: username,
+        password: password,
+        email: email,
+        isVerified: isVerified,
+        profileImage: profileImage,
+      },
     });
     if (results) {
       return results;

@@ -3,11 +3,15 @@ import { HiBadgeCheck } from "react-icons/hi";
 import { BiRepost, BiComment, BiHeart, BiSolidHeart } from "react-icons/bi";
 import { RiUserAddFill } from "react-icons/ri";
 import { Avatar } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-const Post = ({ postId, post, user }) => {
+const Post = ({ postId, post, token }) => {
   const [comment, setComment] = useState("");
   const [commentOpen, setCommentOpen] = useState(false);
+
+  //! To show comments, first Ill bring in the api call "getcommentsbypostid", I'll have to ask if the specific post that I'm on within the map is equal to any in the comments database, if it is I'll display them with all the props. If the post belongs to the current user, an edit and delete button will appear, and the will be connected onclick to the api calls "editComment" and "deleteComment"
+
+  //!  To post comments ill bring in the api call "createComment" and give it the date, username, postId, and commenttext.
 
   return (
     <>
@@ -69,7 +73,7 @@ const Post = ({ postId, post, user }) => {
             <p className="amount">{post.likeAmount}</p>
           </div>
         </div>
-        {commentOpen && user ? (
+        {commentOpen && token ? (
           <form id="inputdiv" className="ui action input">
             <input
               type="text"
