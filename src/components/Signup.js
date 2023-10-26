@@ -1,45 +1,46 @@
 import "./home.css";
-import React, { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import React, { useState } from "react";
+import { Button, Checkbox } from "@mui/material";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../api/requests";
 
-const Signup = (props) => {
+const Signup = ({ setUser }) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const user = props.user;
-  const setUser = props.setUser;
+  const [profileImage, setProfileImage] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const noDupe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        setUser(authUser);
-      } else {
-        setUser(null);
-      }
-    });
-    return () => {
-      noDupe();
-    };
-  }, [user, username]);
-
-  const signup = (event) => {
+  const signup = async (event) => {
     event.preventDefault();
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        return authUser.user.updateProfile({ displayName: username });
-      })
-      .then(() => {
-        navigate("/");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    const results = await registerUser(
+      username,
+      password,
+      email,
+      isVerified,
+      profileImage
+    );
+    setUser(results.user);
+    window.localStorage.setItem("user", results.user);
+    if (results.user) {
+      handleRegister();
+    } else {
+      alert(` The username ${username} is already registered`);
+    }
   };
+
+  const handleRegister = () => {
+    setUsername("");
+    setPassword("");
+    navigate("/login");
+  };
+  const checkHandler = () => {
+    setIsVerified(!isVerified);
+  };
+
   return (
     <div className="loginpage">
       <form onSubmit={signup} className="login">
@@ -77,10 +78,30 @@ const Signup = (props) => {
             }}
           />
         </div>
+        <div id="inputdiv" className="ui input">
+          <input
+            placeholder="profile image url"
+            value={profileImage}
+            type="link"
+            className="inputtext"
+            onChange={(e) => {
+              setProfileImage(e.target.value);
+            }}
+          />
+        </div>
+        <div id="inputdiv" className="ui input">
+          <h2 id="modal-modal-title">Are you famous?</h2>
+          <input
+            type="checkbox"
+            id="checkbox"
+            checked={isVerified}
+            onChange={checkHandler}
+          />
+        </div>
         <Button className="ui button" id="inputbutton1" type="submit">
           Sign Up
         </Button>
-        <Link to="/login">Login</Link>
+        <Link to="/login">I already have an account</Link>
       </form>
     </div>
   );

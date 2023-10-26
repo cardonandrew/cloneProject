@@ -279,3 +279,8 @@ margin-top: 10px;
   transition: ease 300ms;
   margin-left:3px;
 }
+
+.uploadInputs{
+  display: flex;
+  flex-direction: column;
+}

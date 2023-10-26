@@ -1,8 +1,8 @@
 import "./App.css";
-import { seedPosts } from "./seedData";
+// import { seedPosts } from "./seedData";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { auth } from "./firebase";
+import { fetchPosts } from "./api/requests.js";
 import { Avatar } from "@mui/material";
 import {
   Home,
@@ -10,35 +10,42 @@ import {
   Notify,
   Lists,
   Message,
-  Music,
   Community,
   Profile,
   PostForm,
   Login,
   Signup,
+  Upload,
 } from "./components";
 
 function App() {
-  const [isMusic, setIsMusic] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [user, setUser] = useState(null);
+  const [allPosts, setAllPosts] = useState([]);
+  const [newPost, setNewPost] = useState();
+  const [token, setToken] = useState(
+    window.localStorage.getItem("token") || null
+  );
+  const [user, setUser] = useState(
+    JSON.parse(window.localStorage.getItem("user")) || null
+  );
+  console.log("user", user);
+  console.log("token", token);
 
   useEffect(() => {
-    const noDupe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        setUser(authUser);
-      } else {
-        setUser(null);
+    const getAllPosts = async () => {
+      try {
+        const posts = await fetchPosts();
+        setAllPosts(posts.posts.reverse());
+      } catch (error) {
+        console.error(error);
       }
-    });
-    return () => {
-      noDupe();
     };
-  }, []);
+
+    getAllPosts();
+  }, [newPost]);
 
   const handlelogout = () => {
-    auth.signOut();
-    setUser();
+    setUser(null);
+    window.localStorage.clear();
   };
 
   return (
@@ -114,7 +121,7 @@ function App() {
 
           {!user ? (
             <Link className="link-header" to="/signup">
-              LOGIN
+              SIGNUP
             </Link>
           ) : (
             <Link className="link-header" onClick={handlelogout}>
@@ -122,20 +129,20 @@ function App() {
             </Link>
           )}
         </div>
-        {isMusic ? (
-          <div className="tofront">
-            <Music isPlaying={isPlaying} />
-          </div>
-        ) : (
-          ""
-        )}
 
         <div className="main">
           <Routes>
             <Route
               path="/"
               exact
-              element={<Home seedPosts={seedPosts} user={user} />}
+              element={
+                <Home
+                  setNewPost={setNewPost}
+                  allPosts={allPosts}
+                  token={token}
+                  user={user}
+                />
+              }
             />
             <Route path="/explore" exact element={<Explore />} />
             <Route path="/notify" exact element={<Notify />} />
@@ -146,7 +153,9 @@ function App() {
             <Route path="/post" exact element={<PostForm />} />
             <Route
               path="/login"
-              element={<Login user={user} setUser={setUser} />}
+              element={
+                <Login user={user} setToken={setToken} setUser={setUser} />
+              }
             />
             <Route
               path="/signup"

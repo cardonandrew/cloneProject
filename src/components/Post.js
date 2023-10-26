@@ -3,40 +3,15 @@ import { HiBadgeCheck } from "react-icons/hi";
 import { BiRepost, BiComment, BiHeart, BiSolidHeart } from "react-icons/bi";
 import { RiUserAddFill } from "react-icons/ri";
 import { Avatar } from "@mui/material";
-import { db } from "../firebase";
-import { useEffect, useState } from "react";
-import firebase from "firebase/compat/app";
+import { useState } from "react";
 
-const Post = ({ postId, post, user }) => {
-  const [comments, setComments] = useState([]);
+const Post = ({ postId, post, token }) => {
   const [comment, setComment] = useState("");
-  let counter = 0;
+  const [commentOpen, setCommentOpen] = useState(false);
 
-  useEffect(() => {
-    let unsubscribe;
-    if (postId) {
-      unsubscribe = db
-        .collection("posts")
-        .doc(postId)
-        .collection("comments")
-        .onSnapshot((snapshot) => {
-          setComments(snapshot.docs.map((doc) => doc.data(comments)));
-        });
-    }
-    return () => {
-      unsubscribe();
-    };
-  }, [postId]);
+  //! To show comments, first Ill bring in the api call "getcommentsbypostid", I'll have to ask if the specific post that I'm on within the map is equal to any in the comments database, if it is I'll display them with all the props. If the post belongs to the current user, an edit and delete button will appear, and the will be connected onclick to the api calls "editComment" and "deleteComment"
 
-  const postComment = (event) => {
-    event.preventDefault();
-    db.collection("posts").doc(postId).collection("comments").add({
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      username: user.displayName,
-      text: comment,
-    });
-    setComment("");
-  };
+  //!  To post comments ill bring in the api call "createComment" and give it the date, username, postId, and commenttext.
 
   return (
     <>
@@ -45,13 +20,13 @@ const Post = ({ postId, post, user }) => {
           <div className="profileImage">
             <Avatar
               id="profileImage"
-              alt={post.user.toUpperCase()}
+              alt={post.username.toUpperCase()}
               src={post.profileImage}
             ></Avatar>
           </div>
           <div className="userdiv">
-            <a href={`profile/${post.user}`} className="header">
-              @{post.user}
+            <a href={`profile/${post.username}`} className="header">
+              @{post.username}
             </a>
             {post.isVerified ? (
               <h3 className="verified">
@@ -72,7 +47,12 @@ const Post = ({ postId, post, user }) => {
         <div className="actionItems">
           <div className="amountPair">
             <div className="postactionbutton">
-              <BiComment size={23} />
+              <BiComment
+                onClick={() => {
+                  commentOpen ? setCommentOpen(false) : setCommentOpen(true);
+                }}
+                size={23}
+              />
             </div>
             <p className="amount">{post.commentAmount}</p>
           </div>
@@ -93,35 +73,33 @@ const Post = ({ postId, post, user }) => {
             <p className="amount">{post.likeAmount}</p>
           </div>
         </div>
-        <form id="inputdiv" className="ui action input">
-          <input
-            type="text"
-            placeholder="Write comment here..."
-            id="inputtext"
-            value={comment}
-            onChange={(event) => {
-              setComment(event.target.value);
-            }}
-          />
-          <button
-            disabled={!comment}
-            onClick={postComment}
-            className="ui button"
-            type="submit"
-          >
-            comment
-          </button>
-        </form>
-        {user
+        {commentOpen && token ? (
+          <form id="inputdiv" className="ui action input">
+            <input
+              type="text"
+              placeholder="Write comment here..."
+              id="inputtext"
+              value={comment}
+              onChange={(event) => {}}
+            />
+            <button className="ui button" type="submit">
+              comment
+            </button>
+          </form>
+        ) : (
+          ""
+        )}
+
+        {/* {user
           ? comments.map((comment) => (
-              <p key={counter} className="comment-line">
+              <p className="comment-line">
                 <a href={`profile/${comment.username}`} className="nametag">
                   @{comment.username}
                 </a>
                 {comment.text}
               </p>
             ))
-          : ""}
+          : ""} */}
       </div>
     </>
   );

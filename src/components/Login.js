@@ -1,35 +1,32 @@
 import "./home.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import firebase from "firebase/compat/app";
+import { logInUser } from "../api/requests";
 
-const Login = (props) => {
+const Login = ({ setUser, setToken }) => {
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const user = props.user;
-  const setUser = props.setUser;
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
-  const onLogin = (e) => {
+  const onLogin = async (e) => {
     e.preventDefault();
-    firebase
-      .auth()
-      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(
-        auth.signInWithEmailAndPassword(email, password).then((authUser) => {
-          // Signed in
-          setUser(authUser.user);
-          navigate("/");
-        })
-      )
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorCode, errorMessage);
-      });
+    const results = await logInUser(username, password);
+    setToken(results.token);
+    setUser(results.user.username);
+    window.localStorage.setItem("user", JSON.stringify(results.user));
+    window.localStorage.setItem("token", results.token);
+    if (results.token) {
+      handleLogin();
+    } else {
+      alert(` Incorrect username or password`);
+    }
+  };
+  const handleLogin = () => {
+    setUsername("");
+    setPassword("");
+    navigate("/");
   };
 
   return (
@@ -40,10 +37,10 @@ const Login = (props) => {
           <input
             type="text"
             placeholder="email"
-            value={email}
+            value={username}
             id="inputtext1"
             onChange={(e) => {
-              setEmail(e.target.value);
+              setUsername(e.target.value);
             }}
           />
         </div>
@@ -61,7 +58,7 @@ const Login = (props) => {
         <Button className="ui button" id="inputbutton1" type="submit">
           Sign In
         </Button>
-        <Link to="/signup">Create Account</Link>
+        <Link to="/signup">Create account</Link>
       </form>
     </div>
   );
