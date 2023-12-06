@@ -182,6 +182,39 @@ export const createPost = async (
     };
   }
 };
+
+export const createComment = async (username, isVerified, comment, postId) => {
+  const { newComment, message, token, error } = await apiCall("comments", {
+    token: null,
+    method: "Post",
+    body: {
+      username: username,
+      isVerified: isVerified,
+      comment: comment,
+      postId: postId,
+    },
+  });
+
+  if (!error) {
+    console.log(message, newComment);
+    return {
+      error: null,
+      token: null,
+      message: message,
+      comment: newComment,
+    };
+  } else {
+    alert("Something isn't right");
+    console.log("no success in addComment", error);
+    return {
+      error: error.message,
+      token: null,
+      message: null,
+      post: null,
+    };
+  }
+};
+
 export const deletePost = async (currentPostId) => {
   const result = await apiCall(`posts/${currentPostId}`, {
     token: null,

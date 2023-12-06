@@ -1,17 +1,34 @@
 import "./home.css";
 import { HiBadgeCheck } from "react-icons/hi";
 import { BiRepost, BiComment, BiHeart, BiSolidHeart } from "react-icons/bi";
-import { RiUserAddFill } from "react-icons/ri";
+import { createComment } from "../api/requests";
 import { Avatar } from "@mui/material";
 import { useState } from "react";
 
-const Post = ({ postId, post, token }) => {
+const Post = ({ postId, post, user, token }) => {
   const [comment, setComment] = useState("");
   const [commentOpen, setCommentOpen] = useState(false);
 
   //! To show comments, first Ill bring in the api call "getcommentsbypostid", I'll have to ask if the specific post that I'm on within the map is equal to any in the comments database, if it is I'll display them with all the props. If the post belongs to the current user, an edit and delete button will appear, and the will be connected onclick to the api calls "editComment" and "deleteComment"
 
   //!  To post comments ill bring in the api call "createComment" and give it the date, username, postId, and commenttext.
+
+  const handleClear = (e) => {
+    e.preventDefault();
+    setComment("");
+  };
+
+  const handleComment = async (e) => {
+    console.log(postId);
+    const newComment = await createComment(
+      user.username,
+      user.isVerified,
+      comment,
+      postId
+    );
+    console.log("newComment", newComment);
+    handleClear(e);
+  };
 
   return (
     <>
@@ -73,13 +90,19 @@ const Post = ({ postId, post, token }) => {
           </div>
         </div>
         {commentOpen && token ? (
-          <form id="inputdiv" className="ui action input">
+          <form
+            id="inputdiv"
+            className="ui action input"
+            onSubmit={handleComment}
+          >
             <input
               type="text"
               placeholder="Write comment here..."
               id="inputtext"
               value={comment}
-              onChange={(event) => {}}
+              onChange={(event) => {
+                setComment(event.target.value);
+              }}
             />
             <button className="ui button" type="submit">
               comment

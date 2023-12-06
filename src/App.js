@@ -127,7 +127,6 @@ function App() {
           </Link>
           <Link id="profile" to="/profile">
             <Avatar
-              className="ui mini image"
               id="avatar"
               srcSet={user ? user.profileImage : null}
             ></Avatar>

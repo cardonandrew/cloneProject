@@ -27,7 +27,15 @@ const Home = ({ allPosts, token, user, newPost, setNewPost }) => {
         )}
         <div className="feed">
           {allPosts.map((post) => {
-            return <Post key={post.id} post={post} token={token} />;
+            return (
+              <Post
+                key={post.id}
+                postId={post.id}
+                user={user}
+                post={post}
+                token={token}
+              />
+            );
           })}
         </div>
       </div>
