@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api/requests";
 
-const Signup = ({ setUser }) => {
+const Signup = ({ setUser, loginOut, setLoginOut }) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +24,8 @@ const Signup = ({ setUser }) => {
       profileImage
     );
     setUser(results.user);
-    window.localStorage.setItem("user", results.user);
+    window.localStorage.setItem("user", JSON.stringify(results.user));
+    window.localStorage.setItem("token", results.token);
     if (results.user) {
       handleRegister();
     } else {
@@ -33,6 +34,11 @@ const Signup = ({ setUser }) => {
   };
 
   const handleRegister = () => {
+    if (loginOut) {
+      setLoginOut(false);
+    } else {
+      setLoginOut(true);
+    }
     setUsername("");
     setPassword("");
     navigate("/login");

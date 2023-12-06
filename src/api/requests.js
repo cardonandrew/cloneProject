@@ -1,6 +1,6 @@
 //! Ill need a getCommentsbyPostId, createComment, editComment, and deleteComment
 
-const BASEURL = "https://twitterbackend-d9fb.onrender.com/api";
+const BASEURL = "http://localhost:3000/api";
 
 const makeHeaders = (token) => {
   const headers = {
@@ -84,13 +84,11 @@ export const registerUser = async (
 };
 
 export const logInUser = async (username, password) => {
-  console.log("hi");
   const { user, message, token, error } = await apiCall("users/login", {
     token: null,
     method: "Post",
     body: { username: username, password: password },
   });
-
   if (!error) {
     console.log(message, user);
     return {

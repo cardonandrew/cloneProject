@@ -1,14 +1,15 @@
 const Message = () => {
   return (
-    <body>
-      <div className="pageDiv">
-        <div className="pageFeed">
-          <header>
-            <h1 className="pageHeader">Direct Messages</h1>
-          </header>
-        </div>
+    <div className="pageDiv1">
+      <div className="pageFeed">
+        <header>
+          <h1 className="pageHeader">Direct Messages</h1>
+        </header>
       </div>
-    </body>
+      <h1 className="ui header" id="comingSoon">
+        COMING SOON
+      </h1>
+    </div>
   );
 };
 

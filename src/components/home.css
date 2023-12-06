@@ -1,10 +1,23 @@
 body{
   background-color: rgb(21, 21, 21);
 }
+#comingSoon{
+  display: flex;
+  justify-content: center;
+  font-size: 4em; font-weight: bold;
+}
 .pageDiv{
   display: flex;
   justify-content: center;
   margin-left: 1vh;
+  margin-right: 4vh;
+}
+.pageDiv1{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 4vh;
   margin-right: 4vh;
 }
 .pageFeed{
@@ -138,6 +151,14 @@ box-shadow: 1px 1px 1px rgb(60, 60, 60);
   flex-direction: row;
   align-items: center;
 }
+.inputContainer{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  width:73vw;
+  padding:5px;
+}
 #inputdiv{
 width:73%;
 margin-top: 10px;
@@ -154,6 +175,24 @@ margin-top: 10px;
   border: none;
   font-size: larger;
   margin-right: 2px;
+}
+.inputtextcontainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 3px;
+}
+.inputtextclass{
+  
+  background-color: rgb(21, 21, 21);
+  color: white;
+  border: none;
+  font-size: larger;
+  margin-right: 3px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 5px;
+  width:36.5vw;
 }
 #inputbutton{
   background-color: rgb(41, 142, 231);
@@ -279,7 +318,6 @@ margin-top: 10px;
   transition: ease 300ms;
   margin-left:3px;
 }
-
 .uploadInputs{
   display: flex;
   flex-direction: column;

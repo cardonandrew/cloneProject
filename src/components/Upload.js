@@ -1,31 +1,25 @@
 import React, { useState } from "react";
 import "./home.css";
-import { Button } from "@mui/material";
 import { createPost } from "../api/requests";
 
-const Upload = ({ user, setNewPost }) => {
+const Upload = ({ user, newPost, setNewPost }) => {
   const [tweet, setTweet] = useState("");
-  // const [image, setImage] = useState(null);
+  // eslint-disable-next-line
   const [imageUrl, setImageUrl] = useState("");
-
-  // const handleChange = (e) => {
-  //   if (e.target.files[0]) {
-  //     setImage(e.target.files[0]);
-  //   }
-  // };
 
   const handleClear = (e) => {
     e.preventDefault();
     // setProgress(0);
     setTweet("");
     setImageUrl("");
-    setNewPost();
+    // eslint-disable-next-line
+    {
+      newPost ? setNewPost(false) : setNewPost(true);
+    }
   };
-  const ver = user.isVerified;
   const handleUpload = async (e) => {
-    console.log(ver);
     const newPost = await createPost(
-      user,
+      user.username,
       tweet,
       user.isVerified,
       imageUrl,
@@ -38,36 +32,33 @@ const Upload = ({ user, setNewPost }) => {
 
   return (
     <>
-      <div id="inputdiv" className="ui action input">
-        {/* <Button className="ui button" variant="contained" component="label">
-          {"Upload"}
-          <input type="file" accept="/image" hidden />
-        </Button> */}
-        <input
-          type="text"
-          placeholder="Say something..."
-          id="inputtext1"
-          value={tweet}
-          onChange={(event) => {
-            setTweet(event.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="image url"
-          id="inputtext1"
-          value={imageUrl}
-          onChange={(event) => {
-            setImageUrl(event.target.value);
-          }}
-        />
+      <div id="inputdiv" className="inputContainer">
+        <div className="inputtextcontainer">
+          <input
+            type="text"
+            placeholder="Say something..."
+            className="inputtextclass"
+            value={tweet}
+            onChange={(event) => {
+              setTweet(event.target.value);
+            }}
+          />
+          <input
+            type="text"
+            placeholder="image url"
+            className="inputtextclass"
+            value={imageUrl}
+            onChange={(event) => {
+              setImageUrl(event.target.value);
+            }}
+          />
+        </div>
         <button onClick={handleUpload} className="ui button" id="inputbutton">
           Post
         </button>
       </div>
 
       <div className="ui input"></div>
-      {/* <progress className="progressbar" value={progress} max="100"></progress> */}
     </>
   );
 };

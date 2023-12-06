@@ -15,12 +15,12 @@ import {
   PostForm,
   Login,
   Signup,
-  Upload,
 } from "./components";
 
 function App() {
   const [allPosts, setAllPosts] = useState([]);
   const [newPost, setNewPost] = useState();
+  const [loginOut, setLoginOut] = useState(false);
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || null
   );
@@ -29,6 +29,11 @@ function App() {
   );
   console.log("user", user);
   console.log("token", token);
+
+  useEffect(() => {
+    setUser(JSON.parse(window.localStorage.getItem("user")) || null);
+    setToken(window.localStorage.getItem("token") || null);
+  }, [loginOut]);
 
   useEffect(() => {
     const getAllPosts = async () => {
@@ -46,6 +51,11 @@ function App() {
   const handlelogout = () => {
     setUser(null);
     window.localStorage.clear();
+    if (loginOut) {
+      setLoginOut(false);
+    } else {
+      setLoginOut(true);
+    }
   };
 
   return (
@@ -116,7 +126,11 @@ function App() {
             ></img>
           </Link>
           <Link id="profile" to="/profile">
-            <Avatar alt="profile"></Avatar>
+            <Avatar
+              className="ui mini image"
+              id="avatar"
+              srcSet={user ? user.profileImage : null}
+            ></Avatar>
           </Link>
 
           {!user ? (
@@ -137,6 +151,7 @@ function App() {
               exact
               element={
                 <Home
+                  newPost={newPost}
                   setNewPost={setNewPost}
                   allPosts={allPosts}
                   token={token}
@@ -154,13 +169,26 @@ function App() {
             <Route
               path="/login"
               element={
-                <Login user={user} setToken={setToken} setUser={setUser} />
+                <Login
+                  user={user}
+                  loginOut={loginOut}
+                  setLoginOut={setLoginOut}
+                  setToken={setToken}
+                  setUser={setUser}
+                />
               }
             />
             <Route
               path="/signup"
               exact
-              element={<Signup user={user} setUser={setUser} />}
+              element={
+                <Signup
+                  user={user}
+                  loginOut={loginOut}
+                  setLoginOut={setLoginOut}
+                  setUser={setUser}
+                />
+              }
             />
           </Routes>
         </div>

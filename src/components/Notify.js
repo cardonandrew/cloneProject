@@ -2,15 +2,16 @@ import React from "react";
 
 const Notify = () => {
   return (
-    <body>
-      <div className="pageDiv">
-        <div className="pageFeed">
-          <header>
-            <h1 className="pageHeader">Notifications</h1>
-          </header>
-        </div>
+    <div className="pageDiv1">
+      <div className="pageFeed">
+        <header>
+          <h1 className="pageHeader">Notifications</h1>
+        </header>
       </div>
-    </body>
+      <h1 className="ui header" id="comingSoon">
+        COMING SOON
+      </h1>
+    </div>
   );
 };
 

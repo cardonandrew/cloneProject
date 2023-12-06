@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { logInUser } from "../api/requests";
 
-const Login = ({ setUser, setToken }) => {
+const Login = ({ setUser, setToken, loginOut, setLoginOut }) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Login = ({ setUser, setToken }) => {
     e.preventDefault();
     const results = await logInUser(username, password);
     setToken(results.token);
-    setUser(results.user.username);
+    setUser(results.user);
     window.localStorage.setItem("user", JSON.stringify(results.user));
     window.localStorage.setItem("token", results.token);
     if (results.token) {
@@ -24,6 +24,11 @@ const Login = ({ setUser, setToken }) => {
     }
   };
   const handleLogin = () => {
+    if (loginOut) {
+      setLoginOut(false);
+    } else {
+      setLoginOut(true);
+    }
     setUsername("");
     setPassword("");
     navigate("/");

@@ -36,7 +36,6 @@ const Post = ({ postId, post, token }) => {
               ""
             )}
           </div>
-          <RiUserAddFill size={20} />
         </div>
         <p className="tweet">{post.tweet}</p>
         {post.imageUrl ? (
