@@ -12,11 +12,11 @@ const Home = ({ allPosts, token, user, newPost, setNewPost }) => {
         <header>
           <h1 className="pageHeader">Home </h1>
         </header>
-        {token && user ? (
+        {/* {token && user ? (
           <h3 className="pageHeader2"> Welcome {user.username}! </h3>
         ) : (
           ""
-        )}
+        )} */}
         {token ? (
           <Upload
             token={token}
