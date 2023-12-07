@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import "./home.css";
 import { Post, Upload } from "./index";
 
 const Home = ({ allPosts, token, user, newPost, setNewPost }) => {
+  const [allComments, setAllComments] = useState([]);
+
   return (
     <div className="pageDiv">
       <div className="pageFeed">
@@ -34,6 +36,8 @@ const Home = ({ allPosts, token, user, newPost, setNewPost }) => {
                 user={user}
                 post={post}
                 token={token}
+                allComments={allComments}
+                setAllComments={setAllComments}
               />
             );
           })}

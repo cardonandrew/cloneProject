@@ -1,4 +1,4 @@
-//! Ill need a getCommentsbyPostId, createComment, editComment, and deleteComment
+//! Ill need a getCommentsByPostId, createComment, editComment, and deleteComment
 
 const BASEURL = "http://localhost:3000/api";
 
@@ -46,6 +46,7 @@ export const fetchPosts = async (token = null) => {
     };
   }
 };
+
 export const registerUser = async (
   username,
   password,
@@ -211,6 +212,36 @@ export const createComment = async (username, isVerified, comment, postId) => {
       token: null,
       message: null,
       post: null,
+    };
+  }
+};
+
+export const getAllComments = async (token = null) => {
+  const result = await apiCall("comments", { token: token, method: "GET" });
+  if (result) {
+    return {
+      error: null,
+      comments: result,
+    };
+  } else {
+    return {
+      error: result.error,
+      comments: [],
+    };
+  }
+};
+
+export const getCommentsByPostId = async (postId) => {
+  const result = await apiCall(`comments/${postId}`, { method: "GET" });
+  if (result) {
+    return {
+      error: null,
+      comments: result,
+    };
+  } else {
+    return {
+      error: result.error,
+      comments: [],
     };
   }
 };

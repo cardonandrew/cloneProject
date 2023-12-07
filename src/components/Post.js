@@ -1,17 +1,38 @@
 import "./home.css";
 import { HiBadgeCheck } from "react-icons/hi";
 import { BiRepost, BiComment, BiHeart, BiSolidHeart } from "react-icons/bi";
-import { createComment } from "../api/requests";
-import { Avatar } from "@mui/material";
-import { useState } from "react";
+import { createComment, getAllComments } from "../api/requests";
+import { Avatar, useStepContext } from "@mui/material";
+import { useState, useEffect } from "react";
 
-const Post = ({ postId, post, user, token }) => {
+const Post = ({ postId, post, user, token, allComments, setAllComments }) => {
   const [comment, setComment] = useState("");
   const [commentOpen, setCommentOpen] = useState(false);
+  const [postComments, setPostComments] = useState();
+  let currentCommentArr = [];
 
   //! To show comments, first Ill bring in the api call "getcommentsbypostid", I'll have to ask if the specific post that I'm on within the map is equal to any in the comments database, if it is I'll display them with all the props. If the post belongs to the current user, an edit and delete button will appear, and the will be connected onclick to the api calls "editComment" and "deleteComment"
 
   //!  To post comments ill bring in the api call "createComment" and give it the date, username, postId, and commenttext.
+
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const comments = await getAllComments();
+        setPostComments(comments.comments);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getComments();
+  }, []);
+
+  for (let key in postComments) {
+    if (postComments[key].postId === postId) {
+      currentCommentArr.push(postComments[key]);
+    }
+  }
 
   const handleClear = (e) => {
     e.preventDefault();
@@ -112,16 +133,27 @@ const Post = ({ postId, post, user, token }) => {
           ""
         )}
 
-        {/* {user
-          ? comments.map((comment) => (
-              <p className="comment-line">
-                <a href={`profile/${comment.username}`} className="nametag">
+        {user
+          ? currentCommentArr.map((comment) => (
+              <p key={comment.id} className="comment-line">
+                <a
+                  key={comment.id}
+                  href={`profile/${comment.username}`}
+                  className="nametag"
+                >
                   @{comment.username}
                 </a>
-                {comment.text}
+                {comment.isVerified ? (
+                  <h3 className="verified2">
+                    <HiBadgeCheck size={20} />
+                  </h3>
+                ) : (
+                  ""
+                )}
+                {comment.comment}
               </p>
             ))
-          : ""} */}
+          : ""}
       </div>
     </>
   );

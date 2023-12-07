@@ -146,6 +146,15 @@ box-shadow: 1px 1px 1px rgb(60, 60, 60);
   margin:5px;
   padding: 0;
 }
+.verified2{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: rgb(41, 142, 231);
+  margin:0px;
+  margin-right: 20px;
+  padding: 0px;
+}
 .userdiv{
   display: flex;
   flex-direction: row;
@@ -300,11 +309,11 @@ margin-top: 10px;
 }
 .comment-line{
   display: flex;
-  width:50vw;
-  margin:10px;
+  width:90%;
+  margin:6px;
   justify-content: flex-start;
   align-items: flex-start;
-  font-size: small;
+  font-size: medium;
 }
 .nametag{
   margin-right:10px;
