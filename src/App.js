@@ -67,7 +67,7 @@ function App() {
               alt="mainlogo"
               id="mainlogo"
               className="ui mini image"
-              src="https://www.edigitalagency.com.au/wp-content/uploads/twitter-logo-black-png.png"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png"
               //onClick={()=>{}}
             ></img>
           </Link>

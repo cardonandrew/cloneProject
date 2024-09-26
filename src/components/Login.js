@@ -13,11 +13,11 @@ const Login = ({ setUser, setToken, loginOut, setLoginOut }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     const results = await logInUser(username, password);
-    setToken(results.token);
-    setUser(results.user);
-    window.localStorage.setItem("user", JSON.stringify(results.user));
-    window.localStorage.setItem("token", results.token);
     if (results.token) {
+      setToken(results.token);
+      setUser(results.user);
+      window.localStorage.setItem("user", JSON.stringify(results.user));
+      window.localStorage.setItem("token", results.token);
       handleLogin();
     } else {
       alert(` Incorrect username or password`);

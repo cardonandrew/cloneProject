@@ -43,7 +43,7 @@ const Upload = ({ user, newPost, setNewPost }) => {
               setTweet(event.target.value);
             }}
           />
-          <input
+          {/* <input
             type="text"
             placeholder="image url"
             className="inputtextclass"
@@ -51,7 +51,10 @@ const Upload = ({ user, newPost, setNewPost }) => {
             onChange={(event) => {
               setImageUrl(event.target.value);
             }}
-          />
+          /> */}
+          <button className="ui button" id="inputbutton1">
+            Upload Image/Video
+          </button>
         </div>
         <button onClick={handleUpload} className="ui button" id="inputbutton">
           Post

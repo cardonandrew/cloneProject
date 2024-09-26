@@ -9,7 +9,6 @@ body{
 .pageDiv{
   display: flex;
   justify-content: center;
-  margin-left: 1vh;
   margin-right: 4vh;
 }
 .pageDiv1{
@@ -189,6 +188,7 @@ margin-top: 10px;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   margin-bottom: 3px;
 }
 .inputtextclass{
@@ -201,7 +201,7 @@ margin-top: 10px;
   height: 40px;
   padding: 5px;
   border-radius: 5px;
-  width:36.5vw;
+  width:100%;
 }
 #inputbutton{
   background-color: rgb(41, 142, 231);
@@ -212,11 +212,11 @@ margin-top: 10px;
 #inputbutton1{
   margin-top: 10px;
   margin-bottom: 8px;
-  width: 73%;
+  width: 25%;
   background-color: rgb(41, 142, 231);
   color: white;
   font-size:medium;
-  padding: 8px;
+  padding: 15px;
   transition: ease 300ms;
 }
 #inputbutton:hover{

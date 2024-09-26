@@ -67,9 +67,9 @@ const Post = ({ postId, post, user, token, allComments, setAllComments }) => {
               @{post.username}
             </a>
             {post.isVerified ? (
-              <h3 className="verified">
+              <p className="verified">
                 <HiBadgeCheck size={20} />
-              </h3>
+              </p>
             ) : (
               ""
             )}
@@ -144,9 +144,9 @@ const Post = ({ postId, post, user, token, allComments, setAllComments }) => {
                   @{comment.username}
                 </a>
                 {comment.isVerified ? (
-                  <h3 className="verified2">
+                  <p className="verified2">
                     <HiBadgeCheck size={20} />
-                  </h3>
+                  </p>
                 ) : (
                   ""
                 )}
